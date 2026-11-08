@@ -198,8 +198,8 @@ let currentPicture = null;        // { image, fullScreen }
 let overlay = { color: '#000', alpha: 0 };
 let incomingPicture = null;       // { image, alpha } while crossfading to the next fullscreen picture
 let isWaitingForStartClick = true; // the ram logo, "Campus Conquest" above it and "Click to start ..." under it
-// The start screen's words fade in one after the other; a click freezes them, and they stay until the
-// white ram has dissolved over them. null once they are gone.
+// The start screen's words fade in one after the other; a click fades them out to black before the
+// ram dissolves to the white one. null once they are gone.
 let startScreenText = { titleAlpha: 0, promptAlpha: 0 };
 const titleHighlights = { new: false, load: false };
 
@@ -931,13 +931,13 @@ fitCanvasToWindow();
 // ---------------------------------------------------------------------------------------------
 // Start-up (FUN_004031f0 played intro.wav over 3.6 s of black, then ram.dib, then a fade to ram2.dib).
 // The web version waits on the black ram logo for the click that browsers need before playing
-// sound (a click at any moment, even before the words have faded in), then the music starts and
-// the logo dissolves to the white one, taking the words with it, and on to the title.
+// sound (a click at any moment, even before the words have faded in), then the music starts, the
+// words fade out to black, and the logo dissolves to the white one and on to the title.
 async function playIntro() {
   state = STATE.INTRO;
   playSound('intro.wav');
+  await fadeOutStartScreenText(600);
   await crossfadeTo('ram2.dib', 1500);
-  startScreenText = null;
   await sleep(4800);
   state = STATE.TITLE;
   await crossfadeTo('titleScreen.dib', 1500);
@@ -954,6 +954,18 @@ async function boot() {
   await showPicture('ram.dib');
   fadeInStartScreenText();
   return true;
+}
+
+async function fadeOutStartScreenText(milliseconds) {
+  const { titleAlpha, promptAlpha } = startScreenText;
+  const start = performance.now();
+  for (let remaining = 1; remaining > 0;) {
+    await sleep(16);
+    remaining = Math.max(0, 1 - (performance.now() - start) / milliseconds);
+    startScreenText = { titleAlpha: titleAlpha * remaining, promptAlpha: promptAlpha * remaining };
+    render();
+  }
+  startScreenText = null;
 }
 
 function fadeInStartScreenText() {
