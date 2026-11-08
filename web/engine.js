@@ -197,7 +197,10 @@ let state = STATE.INTRO;
 let currentPicture = null;        // { image, fullScreen }
 let overlay = { color: '#000', alpha: 0 };
 let incomingPicture = null;       // { image, alpha } while crossfading to the next fullscreen picture
-let isWaitingForStartClick = true; // the ram logo, "Campus Conquest" above it and "Click to start" under it
+let isWaitingForStartClick = true; // the ram logo, "Campus Conquest" above it and "Click to start ..." under it
+// The start screen's words fade in one after the other; a click freezes them, and they stay until the
+// white ram has dissolved over them. null once they are gone.
+let startScreenText = { titleAlpha: 0, promptAlpha: 0 };
 const titleHighlights = { new: false, load: false };
 
 const isFullScreenState = () => state === STATE.TITLE || state === STATE.ENDING || state === STATE.INTRO;
@@ -216,20 +219,23 @@ function render() {
     if (currentPicture.fullScreen) context.drawImage(currentPicture.image, 0, 0);
     else context.drawImage(currentPicture.image, VIEWPORT_LEFT, VIEWPORT_TOP);
   }
+  if (startScreenText && currentPicture) {
+    context.textAlign = 'center';
+    context.globalAlpha = startScreenText.titleAlpha;
+    context.fillStyle = '#fff';
+    context.font = '24px Georgia, serif';
+    context.fillText('Campus Conquest', SCREEN_WIDTH / 2, 175);
+    context.globalAlpha = startScreenText.promptAlpha;
+    context.fillStyle = '#ccc';
+    context.font = '18px Georgia, serif';
+    context.fillText('Click to start ...', SCREEN_WIDTH / 2, 345);
+    context.globalAlpha = 1;
+    context.textAlign = 'start';
+  }
   if (incomingPicture) {
     context.globalAlpha = incomingPicture.alpha;
     context.drawImage(incomingPicture.image, 0, 0);
     context.globalAlpha = 1;
-  }
-  if (isWaitingForStartClick && currentPicture) {
-    context.textAlign = 'center';
-    context.fillStyle = '#fff';
-    context.font = '24px Georgia, serif';
-    context.fillText('Campus Conquest', SCREEN_WIDTH / 2, 175);
-    context.fillStyle = '#ccc';
-    context.font = '18px Georgia, serif';
-    context.fillText('Click to start', SCREEN_WIDTH / 2, 345);
-    context.textAlign = 'start';
   }
   if (state === STATE.TITLE) {
     if (titleHighlights.new) context.drawImage(sprites['title-new'], 270, 450);
@@ -925,12 +931,13 @@ fitCanvasToWindow();
 // ---------------------------------------------------------------------------------------------
 // Start-up (FUN_004031f0 played intro.wav over 3.6 s of black, then ram.dib, then a fade to ram2.dib).
 // The web version waits on the black ram logo for the click that browsers need before playing
-// sound, then the music starts and the logo dissolves to the white one and on to the title.
+// sound (a click at any moment, even before the words have faded in), then the music starts and
+// the logo dissolves to the white one, taking the words with it, and on to the title.
 async function playIntro() {
   state = STATE.INTRO;
   playSound('intro.wav');
-  await sleep(3600);
   await crossfadeTo('ram2.dib', 1500);
+  startScreenText = null;
   await sleep(4800);
   state = STATE.TITLE;
   await crossfadeTo('titleScreen.dib', 1500);
@@ -945,7 +952,21 @@ async function boot() {
   SPRITE_NAMES.forEach((name, index) => { sprites[name] = loaded[index]; });
   ['ram2.dib', 'titleScreen.dib', 'menu.dib'].forEach((name) => loadImage(pictureUrl(name)));
   await showPicture('ram.dib');
+  fadeInStartScreenText();
   return true;
+}
+
+function fadeInStartScreenText() {
+  const shownAt = performance.now();
+  const fadeIn = (delay) => Math.min(1, Math.max(0, (performance.now() - shownAt - delay) / 1000));
+  const step = () => {
+    if (!isWaitingForStartClick) return;
+    startScreenText.titleAlpha = fadeIn(600);
+    startScreenText.promptAlpha = fadeIn(1800);
+    render();
+    if (startScreenText.promptAlpha < 1) requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
 }
 
 const bootPromise = boot();
@@ -960,6 +981,7 @@ startOverlay.addEventListener('pointerdown', async (event) => {
   render();
   busy = true;
   if (settings.SHOW_INTRO) await playIntro();
+  startScreenText = null;
   busy = false;
   await showTitle();
 }, { once: true });
