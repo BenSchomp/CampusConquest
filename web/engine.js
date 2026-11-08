@@ -227,7 +227,7 @@ function render() {
     context.fillText('Campus Conquest', SCREEN_WIDTH / 2, 175);
     context.globalAlpha = startScreenText.promptAlpha;
     context.fillStyle = '#ccc';
-    context.font = '18px Georgia, serif';
+    context.font = '15px Georgia, serif';
     context.fillText('Click to start ...', SCREEN_WIDTH / 2, 345);
     context.globalAlpha = 1;
     context.textAlign = 'start';
@@ -263,7 +263,15 @@ async function fadeTo(color) {
 
 // Web-only: cross-dissolve from the current fullscreen picture to another one.
 async function crossfadeTo(dibName, milliseconds) {
-  incomingPicture = { image: await loadImage(pictureUrl(dibName)), alpha: 0 };
+  await crossfadeToImage(await loadImage(pictureUrl(dibName)), milliseconds);
+}
+
+const PLAIN_WHITE = Object.assign(document.createElement('canvas'), { width: SCREEN_WIDTH, height: SCREEN_HEIGHT });
+PLAIN_WHITE.getContext('2d').fillStyle = '#fff';
+PLAIN_WHITE.getContext('2d').fillRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+
+async function crossfadeToImage(image, milliseconds) {
+  incomingPicture = { image, alpha: 0 };
   const start = performance.now();
   while (incomingPicture.alpha < 1) {
     await sleep(16);
@@ -932,13 +940,15 @@ fitCanvasToWindow();
 // Start-up (FUN_004031f0 played intro.wav over 3.6 s of black, then ram.dib, then a fade to ram2.dib).
 // The web version waits on the black ram logo for the click that browsers need before playing
 // sound (a click at any moment, even before the words have faded in), then the music starts, the
-// words fade out to black, and the logo dissolves to the white one and on to the title.
+// words fade out to black, the logo dissolves to the white one, that fades to plain white, and the
+// title fades in.
 async function playIntro() {
   state = STATE.INTRO;
   playSound('intro.wav');
   await fadeOutStartScreenText(600);
   await crossfadeTo('ram2.dib', 1500);
   await sleep(4800);
+  await crossfadeToImage(PLAIN_WHITE, 1000);   // the white ram fades out to plain white first
   state = STATE.TITLE;
   await crossfadeTo('titleScreen.dib', 1500);
 }
@@ -974,7 +984,7 @@ function fadeInStartScreenText() {
   const step = () => {
     if (!isWaitingForStartClick) return;
     startScreenText.titleAlpha = fadeIn(600);
-    startScreenText.promptAlpha = fadeIn(1800);
+    startScreenText.promptAlpha = fadeIn(2800);
     render();
     if (startScreenText.promptAlpha < 1) requestAnimationFrame(step);
   };
