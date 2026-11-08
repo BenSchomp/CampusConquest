@@ -9,3 +9,4 @@ Playwright scripts. Serve `web/` on port 8765 (`cd web && python3 -m http.server
     node tests/pointers.js             # every magnifier/hand spot shows its pointer; resized spots still lead where they did
     node tests/intro.js /tmp/shots     # ram logo start screen, then the intro dissolves into the title
     node tests/cursor_flicker.js       # hovering inside a click spot never re-assigns the pointer
+    node tests/pointer_lock.js         # Chrome on macOS takes pointer lock on the start click; other browsers do not

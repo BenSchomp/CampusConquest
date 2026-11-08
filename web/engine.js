@@ -51,13 +51,35 @@ function showCursor(cursor) {
   shownCursor = cursor;
   placePointer();
 }
+// Chrome on macOS still flashes the system arrow over a page whose CSS hides it whenever the mouse
+// moves, so there the game also takes pointer lock on the canvas: the system hides the real pointer,
+// and the game moves its own by the mouse's movement, kept on the picture. Esc gives the mouse back;
+// the next click on the picture takes it again.
+const isChromeOnMac = /Macintosh/.test(navigator.userAgent) && /Chrome\//.test(navigator.userAgent);
+const isPointerLocked = () => document.pointerLockElement === canvas;
+function lockPointerIfNeeded() {
+  if (!isChromeOnMac || isPointerLocked()) return;
+  // Chrome refuses a lock requested too soon after Esc; the next click tries again.
+  Promise.resolve(canvas.requestPointerLock()).catch(() => {});
+}
+document.addEventListener('pointerlockchange', () => {
+  if (isPointerLocked()) { isMouseInPage = true; isMouseOverCanvas = true; }
+  placePointer();
+});
+// Capture phase, so the position is current before the canvas's own handlers read it.
 window.addEventListener('pointermove', (event) => {
   if (event.pointerType !== 'mouse') return;
   isMouseInPage = true;
-  isMouseOverCanvas = event.target === canvas;
-  mouseClientX = event.clientX; mouseClientY = event.clientY;
+  if (isPointerLocked()) {
+    const bounds = canvas.getBoundingClientRect();
+    mouseClientX = Math.min(bounds.right - 1, Math.max(bounds.left, mouseClientX + event.movementX));
+    mouseClientY = Math.min(bounds.bottom - 1, Math.max(bounds.top, mouseClientY + event.movementY));
+  } else {
+    isMouseOverCanvas = event.target === canvas;
+    mouseClientX = event.clientX; mouseClientY = event.clientY;
+  }
   placePointer();
-});
+}, { capture: true });
 document.documentElement.addEventListener('pointerleave', () => { isMouseInPage = false; placePointer(); });
 for (const name of Object.keys(CURSOR_HOTSPOTS)) new Image().src = cursorNamed(name).src;
 
@@ -849,10 +871,13 @@ puzzles.T = {
 let inputQueue = Promise.resolve();
 
 function toScreenPoint(event) {
+  // Under pointer lock the real pointer is frozen, so the game's own pointer position is used.
+  const clientX = isPointerLocked() ? mouseClientX : event.clientX;
+  const clientY = isPointerLocked() ? mouseClientY : event.clientY;
   const bounds = canvas.getBoundingClientRect();
   return {
-    x: Math.round(((event.clientX - bounds.left) / bounds.width) * SCREEN_WIDTH),
-    y: Math.round(((event.clientY - bounds.top) / bounds.height) * SCREEN_HEIGHT),
+    x: Math.round(((clientX - bounds.left) / bounds.width) * SCREEN_WIDTH),
+    y: Math.round(((clientY - bounds.top) / bounds.height) * SCREEN_HEIGHT),
   };
 }
 
@@ -880,6 +905,7 @@ canvas.addEventListener('pointermove', (event) => {
 });
 canvas.addEventListener('pointerdown', (event) => {
   event.preventDefault();
+  lockPointerIfNeeded();
   const { x, y } = toScreenPoint(event);
   inputQueue = inputQueue.then(() => dispatchMouse(x, y, true)).catch((error) => console.error(error));
 });
@@ -923,6 +949,7 @@ const bootPromise = boot();
 const startOverlay = document.getElementById('start');
 startOverlay.addEventListener('pointerdown', async (event) => {
   event.preventDefault();
+  lockPointerIfNeeded();
   audioContext = new (window.AudioContext || window.webkitAudioContext)();
   await bootPromise;
   startOverlay.classList.add('hidden');
