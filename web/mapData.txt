@@ -2026,8 +2026,6 @@ scrn libFoyerOpen
      right < link libExitClosed >
      hotzone < rect 354 120 460 364 
 		   link lib2-3 >  
-     hotzone < rect 82 20 416 62 
-		   link lib1-letters >        
      
 }
 

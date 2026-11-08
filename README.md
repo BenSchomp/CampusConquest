@@ -32,8 +32,8 @@ Known differences from 2001: MIDI music is pre-rendered with the FluidR3 General
 (the original used the Microsoft GS Wavetable synth), and "Exit" returns to the title screen
 instead of closing a window. `bl3-q5` pointed at a picture that doesn't exist (`bl3-q4.dib`) and
 showed black; the build now points it at `bl3-q5.dib` (see `MAP_DATA_FIXES` in
-`tools/build_assets.py`). `lib1-letters` still shows black, as in the original, because its
-picture was never made.
+`tools/build_assets.py`). The sign above the library foyer doors linked to `lib1-letters`, whose
+picture was never made, so the build removes that click spot.
 
 ## Rebuilding the assets
 

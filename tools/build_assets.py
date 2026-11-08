@@ -73,6 +73,9 @@ for midi in sorted((source_dir / 'sounds').glob('*.mid')):
 MAP_DATA_FIXES = [
     # scrn bl3-q5 pointed at a picture that never existed; its own picture, bl3-q5.dib, was there all along.
     ('scrn bl3-q5\r\n{\r\n     img bl3-q4.dib', 'scrn bl3-q5\r\n{\r\n     img bl3-q5.dib'),
+    # The sign above the library foyer doors linked to lib1-letters, whose picture was never made
+    # (a black screen), so that click spot is removed.
+    ('     hotzone < rect 82 20 416 62 \r\n\t\t   link lib1-letters >        \r\n', ''),
 ]
 map_data = (source_dir / 'mapData.txt').read_bytes().decode('latin-1')
 for broken, fixed in MAP_DATA_FIXES:
