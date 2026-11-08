@@ -221,7 +221,7 @@ function parseMapData(text) {
       if (next() !== '<') throw new Error(`Missing '<' in scrn ${screen.name}`);
       // One hotzone holds a single action (link / puzzle / set / exit): the last one written wins.
       const zone = { rect: predefined ? predefined.rect : null, cursor: predefined ? predefined.cursor : 0,
-                     action: null, data: null, sound: null };
+                     isNavigationStrip: Boolean(predefined), action: null, data: null, sound: null };
       for (let part = next(); part !== '>'; part = next()) {
         if (part === 'rect') {
           const [left, top, right, bottom] = [next(), next(), next(), next()].map(Number);
@@ -327,16 +327,18 @@ async function gameMouse(x, y, isClick) { // FUN_00405a90
     await openMenu();
     return;
   }
-  let hoverCursor = null;
-  for (const zone of currentScreen.zones) {
-    if (!zone.rect || !pointInRect(zone.rect, x, y)) continue;
-    // The 2001 engine showed the cursor of the *last* matching hotzone but clicked the *first*, so
-    // overlapping spots (a switch inside a turn strip) showed the wrong pointer. Use the first.
-    if (!isClick) { hoverCursor = hoverCursor || CURSOR_BY_ID[zone.cursor] || CURSOR_ARROW; continue; }
-    await clickZone(zone);
-    return;
-  }
-  setCursor(hoverCursor || CURSOR_ARROW);
+  // Where spots overlap, the 2001 engine clicked whichever came first in mapData.txt but showed the
+  // pointer of the last one, so a door or switch inside a turn strip could show a turn arrow or even
+  // lose the click. Hotzones now always win over the forward/left/right/down strips, and the pointer
+  // always matches what a click will do.
+  const zone = zoneAt(currentScreen, x, y);
+  if (!isClick) { setCursor(zone ? CURSOR_BY_ID[zone.cursor] || CURSOR_ARROW : CURSOR_ARROW); return; }
+  if (zone) await clickZone(zone);
+}
+
+function zoneAt(screen, x, y) {
+  const matches = screen.zones.filter((zone) => zone.rect && pointInRect(zone.rect, x, y));
+  return matches.find((zone) => !zone.isNavigationStrip) || matches[0] || null;
 }
 
 async function clickZone(zone) {

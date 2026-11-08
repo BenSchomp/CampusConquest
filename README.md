@@ -36,6 +36,9 @@ showed black; the build now points it at `bl3-q5.dib` (see `MAP_DATA_FIXES` in
 picture was never made, so the build removes that click spot. The light switch for the Towers of
 Hanoi room was moved from the hallway (where it overlapped the turn-left strip) onto the wall beside
 the dark doorway, and now switches the lights both on and off (`edit_light_switch_pictures`).
+Where a hotzone overlaps a forward/left/right/down strip, the hotzone now always wins the click
+and the pointer shows it; the 2001 engine clicked whichever came first in `mapData.txt` and showed
+the last one's pointer, so some doors and switches showed a turn arrow or lost the click.
 
 ## Rebuilding the assets
 
