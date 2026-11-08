@@ -288,6 +288,7 @@ function loadGame() { // FUN_004045a0
   if (!save) return;
   for (const [target, source] of save.sets) applySet(target, source);
   currentScreen = screenNamed(save.node);
+  if (save.music) { stopMusic(); music.currentName = save.music; } // curMidiId in campus.sav
 }
 
 // ---------------------------------------------------------------------------------------------
@@ -303,6 +304,9 @@ async function changeMusicForScreen(screen) {
 async function showCurrentScreen() { // FUN_00406140
   await showPicture(currentScreen.image || 'missing.dib');
   if (currentScreen.music && !isMusicPlaying(currentScreen.music)) playMusic(currentScreen.music);
+  // Most screens carry no music of their own. The original's main loop (FUN_00403470) restarted
+  // the current track whenever it had stopped, which is how music came back after the menu.
+  else if (!currentScreen.music && music.currentName && !music.source) playMusic(music.currentName);
   prefetchNeighbours(currentScreen);
 }
 
