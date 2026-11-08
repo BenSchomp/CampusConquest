@@ -29,8 +29,8 @@ original ones, extracted from the exe's resources. Saves go to the browser's loc
 instead of `campus.sav`.
 
 Known differences from 2001: MIDI music is pre-rendered with the FluidR3 General MIDI soundfont
-(the original used the Microsoft GS Wavetable synth), and "Exit" returns to the title screen
-instead of closing a window. The game opens on the black ram logo with "Click to start" under it,
+(the original used the Microsoft GS Wavetable synth), and the menu's "Exit" returns to the title screen
+instead of closing a window; the title screen's own "Exit" button is painted out (`remove_title_exit`). The game opens on the black ram logo with "Click to start" under it,
 because browsers only play sound after a click; the click starts the intro music, and the logo
 dissolves to the white ram logo and then to the title screen. `bl3-q5` pointed at a picture that doesn't exist (`bl3-q4.dib`) and
 showed black; the build now points it at `bl3-q5.dib` (see `MAP_DATA_FIXES` in

@@ -46,6 +46,25 @@ def edit_light_switch_pictures():
 
 edit_light_switch_pictures()
 
+def remove_title_exit():
+    """Paint the "Exit" button out of the title screen (a browser tab can't quit the game): each green
+    letter pixel, plus a 2 px margin, is replaced by the asphalt 24 px above it."""
+    title = Image.open(source_dir / 'images' / 'titleScreen.dib').convert('RGB')
+    left, top, right, bottom = 498, 446, 584, 474
+    letters = Image.new('L', title.size, 0)
+    for y in range(top, bottom):
+        for x in range(left, right):
+            red, green, blue = title.getpixel((x, y))
+            if green > red + 12 and green > blue + 12 and green < 170: letters.putpixel((x, y), 255)
+    letters = letters.filter(ImageFilter.MaxFilter(5))
+    asphalt_above = title.copy()
+    for y in range(top, bottom):
+        for x in range(left, right):
+            if letters.getpixel((x, y)): title.putpixel((x, y), asphalt_above.getpixel((x, y - 24)))
+    title.save(assets / 'images' / 'titlescreen.png', optimize=True)
+
+remove_title_exit()
+
 def cut_sprite(template_name, background_name, left, top, width, height, sprite_name):
     template = Image.open(source_dir / 'images' / template_name)
     background_palette = Image.open(source_dir / 'images' / background_name).getpalette()
@@ -56,8 +75,8 @@ def cut_sprite(template_name, background_name, left, top, width, height, sprite_
     rgba.putalpha(Image.frombytes('L', crop.size, bytes(alpha)))
     rgba.save(assets / 'sprites' / f'{sprite_name}.png', optimize=True)
 
-# Title-screen highlight buttons (New / Load / Exit), 80x20 at (10, 10 + 30*i).
-for index, label in enumerate(('new', 'load', 'exit')):
+# Title-screen highlight buttons (New / Load; Exit is removed), 80x20 at (10, 10 + 30*i).
+for index, label in enumerate(('new', 'load')):
     cut_sprite('imageTemplates.dib', 'titleScreen.dib', 10, 10 + 30 * index, 80, 20, f'title-{label}')
 # Box puzzle: 15 tiles, 50x50, tile v at ((v % 4) * 50, (v // 4) * 50).
 for value in range(15):

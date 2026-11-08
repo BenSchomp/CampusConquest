@@ -130,7 +130,7 @@ const pictureUrl = (dibName) => `assets/images/${dibName.toLowerCase().replace(/
 const spriteUrl = (name) => `assets/sprites/${name}.png`;
 
 const SPRITE_NAMES = [
-  'title-new', 'title-load', 'title-exit', 'queen', 'disk-marker',
+  'title-new', 'title-load', 'queen', 'disk-marker',
   ...Array.from({ length: 15 }, (_, value) => `box-${value}`),
   ...Array.from({ length: 10 }, (_, value) => `array-card-${value}`),
   ...Array.from({ length: 10 }, (_, value) => `array-digit-${value}`),
@@ -155,7 +155,7 @@ let currentPicture = null;        // { image, fullScreen }
 let overlay = { color: '#000', alpha: 0 };
 let incomingPicture = null;       // { image, alpha } while crossfading to the next fullscreen picture
 let isWaitingForStartClick = true; // the ram logo with "Click to start" under it
-const titleHighlights = { new: false, load: false, exit: false };
+const titleHighlights = { new: false, load: false };
 
 const isFullScreenState = () => state === STATE.TITLE || state === STATE.ENDING || state === STATE.INTRO;
 
@@ -188,7 +188,6 @@ function render() {
   if (state === STATE.TITLE) {
     if (titleHighlights.new) context.drawImage(sprites['title-new'], 270, 450);
     if (titleHighlights.load) context.drawImage(sprites['title-load'], 380, 450);
-    if (titleHighlights.exit) context.drawImage(sprites['title-exit'], 500, 450);
   }
   if (state === STATE.PUZZLE && activePuzzle) activePuzzle.draw();
   if (overlay.alpha > 0) {
@@ -425,12 +424,11 @@ async function waitForSound(finished) { // state WAIT_SOUND: input ignored until
 const TITLE_BUTTONS = {
   new: [271, 451, 349, 469],
   load: [381, 451, 459, 469],
-  exit: [501, 451, 579, 469],
 };
 
 async function showTitle() {
   state = STATE.TITLE;
-  titleHighlights.new = titleHighlights.load = titleHighlights.exit = false;
+  titleHighlights.new = titleHighlights.load = false;
   await showPicture('titleScreen.dib');
 }
 
@@ -445,8 +443,7 @@ async function titleMouse(x, y, isClick) {
     if (changed) render();
     return;
   }
-  if (hovered === 'exit') await quitGame();
-  else if (hovered === 'load') await beginGame({ fromSave: true });
+  if (hovered === 'load') await beginGame({ fromSave: true });
   else if (hovered === 'new') await beginGame({ fromSave: false });
 }
 
