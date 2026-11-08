@@ -30,7 +30,9 @@ instead of `campus.sav`.
 
 Known differences from 2001: MIDI music is pre-rendered with the FluidR3 General MIDI soundfont
 (the original used the Microsoft GS Wavetable synth), and "Exit" returns to the title screen
-instead of closing a window. `bl3-q5` pointed at a picture that doesn't exist (`bl3-q4.dib`) and
+instead of closing a window. The game opens on the black ram logo with "Click to start" under it,
+because browsers only play sound after a click; the click starts the intro music, and the logo
+dissolves to the white ram logo and then to the title screen. `bl3-q5` pointed at a picture that doesn't exist (`bl3-q4.dib`) and
 showed black; the build now points it at `bl3-q5.dib` (see `MAP_DATA_FIXES` in
 `tools/build_assets.py`). The sign above the library foyer doors linked to `lib1-letters`, whose
 picture was never made, so the build removes that click spot. The light switch for the Towers of

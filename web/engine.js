@@ -144,6 +144,8 @@ const STATE = { GAME: 0, PUZZLE: 1, MENU: 2, TITLE: 3, ENDING: 5, WAIT_SOUND: 6,
 let state = STATE.INTRO;
 let currentPicture = null;        // { image, fullScreen }
 let overlay = { color: '#000', alpha: 0 };
+let incomingPicture = null;       // { image, alpha } while crossfading to the next fullscreen picture
+let isWaitingForStartClick = true; // the ram logo with "Click to start" under it
 const titleHighlights = { new: false, load: false, exit: false };
 
 const isFullScreenState = () => state === STATE.TITLE || state === STATE.ENDING || state === STATE.INTRO;
@@ -161,6 +163,18 @@ function render() {
   if (currentPicture && currentPicture.image) {
     if (currentPicture.fullScreen) context.drawImage(currentPicture.image, 0, 0);
     else context.drawImage(currentPicture.image, VIEWPORT_LEFT, VIEWPORT_TOP);
+  }
+  if (incomingPicture) {
+    context.globalAlpha = incomingPicture.alpha;
+    context.drawImage(incomingPicture.image, 0, 0);
+    context.globalAlpha = 1;
+  }
+  if (isWaitingForStartClick && currentPicture) {
+    context.fillStyle = '#ccc';
+    context.font = '18px Georgia, serif';
+    context.textAlign = 'center';
+    context.fillText('Click to start', SCREEN_WIDTH / 2, 345);
+    context.textAlign = 'start';
   }
   if (state === STATE.TITLE) {
     if (titleHighlights.new) context.drawImage(sprites['title-new'], 270, 450);
@@ -185,6 +199,20 @@ async function fadeTo(color) {
     render();
     await sleep(12);
   }
+}
+
+// Web-only: cross-dissolve from the current fullscreen picture to another one.
+async function crossfadeTo(dibName, milliseconds) {
+  incomingPicture = { image: await loadImage(pictureUrl(dibName)), alpha: 0 };
+  const start = performance.now();
+  while (incomingPicture.alpha < 1) {
+    await sleep(16);
+    incomingPicture.alpha = Math.min(1, (performance.now() - start) / milliseconds);
+    render();
+  }
+  currentPicture = { image: incomingPicture.image, fullScreen: true };
+  incomingPicture = null;
+  render();
 }
 
 // ---------------------------------------------------------------------------------------------
@@ -839,20 +867,17 @@ window.addEventListener('resize', fitCanvasToWindow);
 fitCanvasToWindow();
 
 // ---------------------------------------------------------------------------------------------
-// Start-up (FUN_004031f0): the URI ram intro, then the title screen.
+// Start-up (FUN_004031f0 played intro.wav over 3.6 s of black, then ram.dib, then a fade to ram2.dib).
+// The web version waits on the black ram logo for the click that browsers need before playing
+// sound, then the music starts and the logo dissolves to the white one and on to the title.
 async function playIntro() {
   state = STATE.INTRO;
   playSound('intro.wav');
   await sleep(3600);
-  await showPicture('ram.dib');
-  markTime();
-  await waitSinceMark(4800);
-  await fadeTo('#000');
-  await fadeTo('#fff');
-  await showPicture('ram2.dib');
-  markTime();
-  await waitSinceMark(4800);
-  await fadeTo('#000');
+  await crossfadeTo('ram2.dib', 1500);
+  await sleep(4800);
+  state = STATE.TITLE;
+  await crossfadeTo('titleScreen.dib', 1500);
 }
 
 async function boot() {
@@ -862,7 +887,8 @@ async function boot() {
   resetWorld();
   const loaded = await Promise.all(SPRITE_NAMES.map((name) => loadImage(spriteUrl(name))));
   SPRITE_NAMES.forEach((name, index) => { sprites[name] = loaded[index]; });
-  ['ram.dib', 'ram2.dib', 'titleScreen.dib', 'menu.dib'].forEach((name) => loadImage(pictureUrl(name)));
+  ['ram2.dib', 'titleScreen.dib', 'menu.dib'].forEach((name) => loadImage(pictureUrl(name)));
+  await showPicture('ram.dib');
   return true;
 }
 
@@ -870,9 +896,11 @@ const bootPromise = boot();
 const startOverlay = document.getElementById('start');
 startOverlay.addEventListener('pointerdown', async (event) => {
   event.preventDefault();
-  startOverlay.classList.add('hidden');
   audioContext = new (window.AudioContext || window.webkitAudioContext)();
   await bootPromise;
+  startOverlay.classList.add('hidden');
+  isWaitingForStartClick = false;
+  render();
   busy = true;
   if (settings.SHOW_INTRO) await playIntro();
   busy = false;
