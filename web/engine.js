@@ -330,7 +330,9 @@ async function gameMouse(x, y, isClick) { // FUN_00405a90
   let hoverCursor = null;
   for (const zone of currentScreen.zones) {
     if (!zone.rect || !pointInRect(zone.rect, x, y)) continue;
-    if (!isClick) { hoverCursor = CURSOR_BY_ID[zone.cursor] || CURSOR_ARROW; continue; }
+    // The 2001 engine showed the cursor of the *last* matching hotzone but clicked the *first*, so
+    // overlapping spots (a switch inside a turn strip) showed the wrong pointer. Use the first.
+    if (!isClick) { hoverCursor = hoverCursor || CURSOR_BY_ID[zone.cursor] || CURSOR_ARROW; continue; }
     await clickZone(zone);
     return;
   }
@@ -359,6 +361,8 @@ async function clickZone(zone) {
   } else if (zone.action === 'set') {
     const [target, source] = zone.data.split('=');
     applySet(target, source);
+    // Redraw if the screen you're looking at changed (e.g. flipping the light switch beside the doorway).
+    if (screenNamed(target) === currentScreen) await showCurrentScreen();
   } else if (zone.action === 'puzzle') {
     await startPuzzle(zone.data[0]);
   } else if (zone.action === 'exit') {

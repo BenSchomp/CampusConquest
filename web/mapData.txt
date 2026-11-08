@@ -2994,6 +2994,17 @@ scrn ranger19-20
 	forward < link ranger20-10 >
 	
 }
+scrn ranger20-21_dark
+{
+	img ranger20-21_dark.dib
+	down < link ranger20-10 >
+	left < link ranger21-20 >
+	right < link ranger21-20 >
+	hotzone < rect 227 60 326 299 link ranger22-23_dark >
+	hotzone < rect 179 102 201 138 sound lightSwitch.wav set ranger20-21=ranger20-21_light >
+	
+}
+
 scrn ranger20-21
 {
 	img ranger20-21_dark.dib
@@ -3001,6 +3012,7 @@ scrn ranger20-21
 	left < link ranger21-20 >
 	right < link ranger21-20 >
 	hotzone < rect 227 60 326 299 link ranger22-23_dark >
+	hotzone < rect 179 102 201 138 sound lightSwitch.wav set ranger20-21=ranger20-21_light >
 	
 }
 
@@ -3011,6 +3023,7 @@ scrn ranger20-21_light
 	left < link ranger21-20 >
 	right < link ranger21-20 >
 	hotzone < rect 227 60 326 299 link ranger22-23 >
+	hotzone < rect 179 102 201 138 sound lightSwitch.wav set ranger20-21=ranger20-21_dark >
 	
 }
 
@@ -3102,7 +3115,6 @@ scrn ranger21-20
 {
 	img ranger21-20.dib
 	forward < link ranger20-10 >
-	hotzone < rect 31 208 55 255 sound lightSwitch.wav set ranger20-21=ranger20-21_light >
 	right < link ranger20-21 >
 	left < link ranger20-21 >
 	

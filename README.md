@@ -33,7 +33,9 @@ Known differences from 2001: MIDI music is pre-rendered with the FluidR3 General
 instead of closing a window. `bl3-q5` pointed at a picture that doesn't exist (`bl3-q4.dib`) and
 showed black; the build now points it at `bl3-q5.dib` (see `MAP_DATA_FIXES` in
 `tools/build_assets.py`). The sign above the library foyer doors linked to `lib1-letters`, whose
-picture was never made, so the build removes that click spot.
+picture was never made, so the build removes that click spot. The light switch for the Towers of
+Hanoi room was moved from the hallway (where it overlapped the turn-left strip) onto the wall beside
+the dark doorway, and now switches the lights both on and off (`edit_light_switch_pictures`).
 
 ## Rebuilding the assets
 

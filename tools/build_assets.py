@@ -12,7 +12,7 @@ Usage: python3 build_assets.py <original Campus_Conquest dir> <web output dir>
 - mapData.txt       -> copied unchanged
 """
 import pathlib, shutil, subprocess, sys
-from PIL import Image
+from PIL import Image, ImageDraw, ImageFilter
 
 source_dir, output_dir = pathlib.Path(sys.argv[1]), pathlib.Path(sys.argv[2])
 assets = output_dir / 'assets'
@@ -23,6 +23,28 @@ for dib in sorted((source_dir / 'images').glob('*.dib')):
     target = assets / 'images' / (dib.stem.lower() + '.png')
     if not target.exists():
         Image.open(dib).save(target, optimize=True)
+
+def edit_light_switch_pictures():
+    """Move the light switch from the hallway (ranger21-20) to the wall left of the dark doorway.
+
+    Always regenerated from the original .dib files, so rebuilding gives the same result."""
+    images = source_dir / 'images'
+    hallway = Image.open(images / 'ranger21-20.dib').convert('RGB')
+    switch_plate = hallway.crop((31, 208, 56, 256))
+    hallway.paste(hallway.crop((26, 148, 62, 204)), (26, 204))  # clone the clean wall above over the switch
+    hallway.save(assets / 'images' / 'ranger21-20.png', optimize=True)
+    width, height, center_x, center_y = 15, 29, 190, 120         # sized to the doorway photo's perspective
+    left, top = center_x - width // 2, center_y - height // 2
+    shadow = Image.new('L', (width + 6, height + 6), 0)
+    ImageDraw.Draw(shadow).rectangle((3, 3, width + 2, height + 2), fill=110)
+    shadow = shadow.filter(ImageFilter.GaussianBlur(1.5))
+    for name in ('ranger20-21_dark', 'ranger20-21'):             # lights off and lights on
+        room = Image.open(images / f'{name}.dib').convert('RGB')
+        room.paste(Image.new('RGB', shadow.size, (70, 70, 60)), (left - 2, top - 2), shadow)
+        room.paste(switch_plate.resize((width, height), Image.LANCZOS), (left, top))
+        room.save(assets / 'images' / f'{name}.png', optimize=True)
+
+edit_light_switch_pictures()
 
 def cut_sprite(template_name, background_name, left, top, width, height, sprite_name):
     template = Image.open(source_dir / 'images' / template_name)
@@ -76,6 +98,22 @@ MAP_DATA_FIXES = [
     # The sign above the library foyer doors linked to lib1-letters, whose picture was never made
     # (a black screen), so that click spot is removed.
     ('     hotzone < rect 82 20 416 62 \r\n\t\t   link lib1-letters >        \r\n', ''),
+    # The light switch for the Towers of Hanoi room moves from the hallway (ranger21-20), where it
+    # overlapped the turn-left strip, to the wall beside the dark doorway (ranger20-21); see
+    # edit_light_switch_pictures below. It now toggles: ranger20-21_dark is a pristine copy of the
+    # lights-off screen so the lights can be switched back off.
+    ('\thotzone < rect 31 208 55 255 sound lightSwitch.wav set ranger20-21=ranger20-21_light >\r\n', ''),
+    ('scrn ranger20-21\r\n{\r\n\timg ranger20-21_dark.dib\r\n\tdown < link ranger20-10 >\r\n\tleft < link ranger21-20 >\r\n'
+     '\tright < link ranger21-20 >\r\n\thotzone < rect 227 60 326 299 link ranger22-23_dark >\r\n',
+     ''.join(
+        f'scrn {name}\r\n{{\r\n\timg ranger20-21_dark.dib\r\n\tdown < link ranger20-10 >\r\n\tleft < link ranger21-20 >\r\n'
+        f'\tright < link ranger21-20 >\r\n\thotzone < rect 227 60 326 299 link ranger22-23_dark >\r\n'
+        f'\thotzone < rect 179 102 201 138 sound lightSwitch.wav set ranger20-21=ranger20-21_light >\r\n'
+        + ('\t\r\n}\r\n\r\n' if name == 'ranger20-21_dark' else '')
+        for name in ('ranger20-21_dark', 'ranger20-21'))),
+    ('\thotzone < rect 227 60 326 299 link ranger22-23 >\r\n',
+     '\thotzone < rect 227 60 326 299 link ranger22-23 >\r\n'
+     '\thotzone < rect 179 102 201 138 sound lightSwitch.wav set ranger20-21=ranger20-21_dark >\r\n'),
 ]
 map_data = (source_dir / 'mapData.txt').read_bytes().decode('latin-1')
 for broken, fixed in MAP_DATA_FIXES:
@@ -83,5 +121,4 @@ for broken, fixed in MAP_DATA_FIXES:
         raise SystemExit(f'mapData.txt fix no longer applies: {broken!r}')
     map_data = map_data.replace(broken, fixed)
 (output_dir / 'mapData.txt').write_bytes(map_data.encode('latin-1'))
-print('done')
 print('done')
