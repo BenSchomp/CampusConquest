@@ -16,13 +16,16 @@ const canvas = document.getElementById('screen');
 const context = canvas.getContext('2d');
 
 // ---------------------------------------------------------------------------------------------
-// Cursors, extracted from the .exe's resources. Index order matches the engine's cursor table.
-const CURSOR_HOTSPOTS = { 104: [14, 19], 105: [14, 1], 131: [1, 16], 132: [30, 16], 133: [1, 1], 135: [0, 10] };
-const cursorCss = (resourceId) => {
-  const [hotspotX, hotspotY] = CURSOR_HOTSPOTS[resourceId];
-  return `url(assets/cursors/cursor${resourceId}.png) ${hotspotX} ${hotspotY}, default`;
+// Cursors 104-135 are extracted from the .exe's resources; magnifier and hand were added for the
+// web version (tools/draw_cursors.py). Index order matches mapData's `cursor N`.
+const CURSOR_HOTSPOTS = { 104: [14, 19], 105: [14, 1], 131: [1, 16], 132: [30, 16], 133: [1, 1], 135: [0, 10],
+                          magnifier: [12, 12], hand: [14, 3] };
+const cursorCss = (cursorName) => {
+  const [hotspotX, hotspotY] = CURSOR_HOTSPOTS[cursorName];
+  return `url(assets/cursors/cursor${cursorName}.png) ${hotspotX} ${hotspotY}, default`;
 };
-const CURSOR_BY_ID = [cursorCss(105), cursorCss(104), cursorCss(131), cursorCss(132)]; // forward, back, left, right
+// forward, back, left, right, magnifier (look closer), hand (press / use)
+const CURSOR_BY_ID = [cursorCss(105), cursorCss(104), cursorCss(131), cursorCss(132), cursorCss('magnifier'), cursorCss('hand')];
 const CURSOR_ARROW = cursorCss(133);
 const CURSOR_MENU = cursorCss(135);
 let requestedCursor = CURSOR_ARROW;

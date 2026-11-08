@@ -6,3 +6,4 @@ Playwright scripts. Serve `web/` on port 8765 (`cd web && python3 -m http.server
     node tests/menu_music.js           # music resumes after leaving the menu
     node tests/light_switch.js         # light switch toggles the Towers room lights on and off
     node tests/hotzone_wins.js         # click spots beat the turn/forward strips they overlap
+    node tests/pointers.js             # every magnifier/hand spot shows its pointer; resized spots still lead where they did

@@ -14,11 +14,11 @@ scrn puzzleTest
 {
 	img puzzleTesting.dib
 	
-	hotzone < rect 27 120 453 150 puzzle P >
-	hotzone < rect 27 162 453 192 puzzle B >
-	hotzone < rect 27 200 453 230 puzzle T >
-	hotzone < rect 27 243 453 273 puzzle A >
-	hotzone < rect 27 283 453 313 puzzle E >
+	hotzone < rect 27 120 453 150 puzzle P cursor 5 >
+	hotzone < rect 27 162 453 192 puzzle B cursor 5 >
+	hotzone < rect 27 200 453 230 puzzle T cursor 5 >
+	hotzone < rect 27 243 453 273 puzzle A cursor 5 >
+	hotzone < rect 27 283 453 313 puzzle E cursor 5 >
 	
 }
 
@@ -243,7 +243,7 @@ scrn lip13-12
 {
 	img lip13-12.dib
 	
-	hotzone < rect 43 117 113 251 link lip12-sign >
+	hotzone < rect 43 117 113 251 link lip12-sign cursor 4 >
 	right < link lip13-14 >
 	left < link lip13-14 >
 	
@@ -327,7 +327,7 @@ scrn lip16-doorsopen
 scrn liproom1-2
 {
 	img liproom1-2.dib
-	hotzone < rect 0 57 105 200 link clock1 >
+	hotzone < rect 0 57 105 200 link clock1 cursor 4 >
 	down < link lip16-doorsopen >
 	
 }
@@ -338,8 +338,8 @@ scrn liproom1-2
 	{
 		img clock1.dib
 
-		hotzone < rect 227 300 270 354 sound turn.wav link clock2 >
-		hotzone < rect 131 290 142 306 sound click2.wav >
+		hotzone < rect 227 300 270 354 sound turn.wav link clock2 cursor 5 >
+		hotzone < rect 131 290 142 306 sound click2.wav cursor 5 >
 		down < link liproom1-2 >
 
 	}
@@ -348,8 +348,8 @@ scrn liproom1-2
 	{
 		img clock2.dib
 
-		hotzone < rect 227 300 270 354 sound turn.wav link clock3 >
-		hotzone < rect 131 290 142 306 sound click2.wav >
+		hotzone < rect 227 300 270 354 sound turn.wav link clock3 cursor 5 >
+		hotzone < rect 131 290 142 306 sound click2.wav cursor 5 >
 		down < link liproom1-2 >
 
 	}
@@ -358,8 +358,8 @@ scrn liproom1-2
 	{
 		img clock3.dib
 
-		hotzone < rect 227 300 270 354 sound turn.wav link clock4 >
-		hotzone < rect 131 290 142 306 sound click2.wav >
+		hotzone < rect 227 300 270 354 sound turn.wav link clock4 cursor 5 >
+		hotzone < rect 131 290 142 306 sound click2.wav cursor 5 >
 		down < link liproom1-2 >
 
 	}
@@ -368,8 +368,8 @@ scrn liproom1-2
 	{
 		img clock4.dib
 
-		hotzone < rect 227 300 270 354 sound turn.wav link clock5 >
-		hotzone < rect 131 290 142 306 sound click2.wav >
+		hotzone < rect 227 300 270 354 sound turn.wav link clock5 cursor 5 >
+		hotzone < rect 131 290 142 306 sound click2.wav cursor 5 >
 		down < link liproom1-2 >
 
 	}
@@ -378,8 +378,8 @@ scrn liproom1-2
 	{
 		img clock5.dib
 
-		hotzone < rect 227 300 270 354 sound turn.wav link clock6 >
-		hotzone < rect 131 290 142 306 sound click2.wav >
+		hotzone < rect 227 300 270 354 sound turn.wav link clock6 cursor 5 >
+		hotzone < rect 131 290 142 306 sound click2.wav cursor 5 >
 		down < link liproom1-2 >
 
 	}
@@ -388,8 +388,8 @@ scrn liproom1-2
 	{
 		img clock6.dib
 
-		hotzone < rect 227 300 270 354 sound turn.wav link clock7 >
-		hotzone < rect 131 290 142 306 sound fitebell.wav puzzle ArrayGame >
+		hotzone < rect 227 300 270 354 sound turn.wav link clock7 cursor 5 >
+		hotzone < rect 131 290 142 306 sound fitebell.wav puzzle ArrayGame cursor 5 >
 		down < link liproom1-2 >
 
 		music midifile6.mid
@@ -399,8 +399,8 @@ scrn liproom1-2
 	{
 		img clock7.dib
 
-		hotzone < rect 227 300 270 354 sound turn.wav link clock8 >
-		hotzone < rect 131 290 142 306 sound click2.wav >
+		hotzone < rect 227 300 270 354 sound turn.wav link clock8 cursor 5 >
+		hotzone < rect 131 290 142 306 sound click2.wav cursor 5 >
 		down < link liproom1-2 >
 
 	}
@@ -409,8 +409,8 @@ scrn liproom1-2
 	{
 		img clock8.dib
 
-		hotzone < rect 227 300 270 354 sound turn.wav link clock9 >
-		hotzone < rect 131 290 142 306 sound click2.wav >
+		hotzone < rect 227 300 270 354 sound turn.wav link clock9 cursor 5 >
+		hotzone < rect 131 290 142 306 sound click2.wav cursor 5 >
 		down < link liproom1-2 >
 
 	}
@@ -419,8 +419,8 @@ scrn liproom1-2
 	{
 		img clock9.dib
 
-		hotzone < rect 227 300 270 354 sound turn.wav link clock1 >
-		hotzone < rect 131 290 142 306 sound click2.wav >
+		hotzone < rect 227 300 270 354 sound turn.wav link clock1 cursor 5 >
+		hotzone < rect 131 290 142 306 sound click2.wav cursor 5 >
 		down < link liproom1-2 >
 
 	}
@@ -441,20 +441,20 @@ scrn blissDoor
      left < link blissLeaving >
      right < link blissLeaving >
      hotzone < rect 173 37 298 267 link blissDoorOpen  sound dooropening.wav >
-     hotzone < rect 75 61 118 118 link fire >
+     hotzone < rect 75 61 118 118 link fire cursor 4 >
 }
 scrn fire
 {
 	img fire3.dib
 	down < link blissDoor >
-	hotzone < rect 210 176 270 256 link fire1 >
+	hotzone < rect 210 176 270 256 link fire1 cursor 5 >
 	
 }
 scrn fire1
 {
 	img fire1.dib
 	# hotzone < rect 205 245 272 314 link fire >
-	hotzone < rect 233 197 248 217 sound firebell.wav >
+	hotzone < rect 233 197 248 217 sound firebell.wav cursor 5 >
 	down < link blissDoor >
 		
 }
@@ -742,7 +742,7 @@ scrn bliss6-7
      img bliss6-7.dib
      
      hotzone < rect 211 49 307 267 link blissDeadEnd >
-     hotzone < rect 32 237 185 338 link blissBinClosed >
+     hotzone < rect 32 237 185 338 link blissBinClosed cursor 4 >
 	 left < link bliss6-5 >
      right < link bliss6-5 >
 }
@@ -774,8 +774,8 @@ scrn blissBath1
 {
      img blissBath1.dib
 
-	 hotzone < rect 398 184 483 243 link blissSinkOff >     
-     hotzone < rect 30 24 192 360 link blissBathStall >
+	 hotzone < rect 398 184 483 243 link blissSinkOff cursor 4 >     
+     hotzone < rect 30 24 192 360 link blissBathStall cursor 4 >
 	 left < link blissBathExit >
 	 right < link blissBathExit >
      
@@ -795,14 +795,14 @@ scrn blissBathStall
      
 
      down < link blissBath1 >
-     hotzone < rect 204 132 243 165 sound flush.wav >
+     hotzone < rect 204 132 243 165 sound flush.wav cursor 5 >
 }
 scrn blissSinkOff
 {
      img blissSinkOff.dib
      
 
-     hotzone < rect 257 194 294 234 link blissSinkOn sound wrunning.wav >
+     hotzone < rect 257 194 294 234 link blissSinkOn sound wrunning.wav cursor 5 >
      down < link blissBath1 >
 }
 scrn blissSinkOn
@@ -810,7 +810,7 @@ scrn blissSinkOn
      img blissSinkOn2.dib
      
 
-     hotzone < rect 257 194 294 234 link blissSinkOff >
+     hotzone < rect 257 194 294 234 link blissSinkOff cursor 5 >
      down < link blissBath1 >
 }
 
@@ -823,7 +823,7 @@ scrn blissElevClosed
 
      left < link bliss4-3 >
      right < link bliss4-5 >
-     hotzone < rect 96 180 109 195 set blissElevClosed=blissElevClosed2 sound elevatorRun2.wav >
+     hotzone < rect 96 180 109 195 set blissElevClosed=blissElevClosed2 sound elevatorRun2.wav cursor 5 >
 }
 
 scrn blissElevClosed2
@@ -832,7 +832,7 @@ scrn blissElevClosed2
 
      left < link bliss4-3 >
      right < link bliss4-5 >
-     hotzone < rect 172 156 198 217 link blissElevOpen sound elevatorOpen.wav >
+     hotzone < rect 172 156 198 217 link blissElevOpen sound elevatorOpen.wav cursor 5 >
 }
 
 scrn blissElevOpen
@@ -849,7 +849,7 @@ scrn blissElevInside
      img blissElevInside.dib
      
      right < link blissElevExit >
-     hotzone < rect 159 122 210 220 link blissElevButton >
+     hotzone < rect 159 122 210 220 link blissElevButton cursor 4 >
 }
 
 scrn blissElevInside2ndFloor
@@ -858,7 +858,7 @@ scrn blissElevInside2ndFloor
      
 
      right < link blissElev2ndFloorOpen >
-     hotzone < rect 159 122 210 220 link blissElevButton2nd >
+     hotzone < rect 159 122 210 220 link blissElevButton2nd cursor 4 >
 }
 
 scrn blissElev2ndFloorOpen
@@ -883,7 +883,7 @@ scrn blissElevButton
 {
      img blissElevButton.dib
      
-	 hotzone < rect 232 152 256 175 link elev2ndFloor sound elevatorRun.wav >
+	 hotzone < rect 232 152 256 175 link elev2ndFloor sound elevatorRun.wav cursor 5 >
 	 # hotzone < rect 232 193 256 217 link elevBaseFloor >
      down < link blissElevInside >
  }
@@ -892,7 +892,7 @@ scrn blissElevButton2nd
      img blissElevButton.dib
      
 	 # hotzone < rect 232 152 256 175 link elev2ndFloor >
-	 hotzone < rect 232 193 256 217 link elevBaseFloor sound elevatorRun.wav >
+	 hotzone < rect 232 193 256 217 link elevBaseFloor sound elevatorRun.wav cursor 5 >
      down < link blissElevInside2ndFloor >
  }
 
@@ -900,7 +900,7 @@ scrn elev2ndFloor
 {
 	img blissInElevDoorClosed.dib
 	left < link blissElevInside2ndFloor >
-	hotzone < rect 361 271 401 357 link blissElev2ndFloorOpen sound elevatorOpen.wav >
+	hotzone < rect 361 271 401 357 link blissElev2ndFloorOpen sound elevatorOpen.wav cursor 5 >
 	
 
 }
@@ -909,7 +909,7 @@ scrn elevBaseFloor
 {
 	img blissInElevDoorClosed.dib
 	left < link blissElevInside >
-	hotzone < rect 361 271 401 357 link blissElevExit sound elevatorOpen.wav >
+	hotzone < rect 361 271 401 357 link blissElevExit sound elevatorOpen.wav cursor 5 >
 	
 }
 
@@ -917,7 +917,7 @@ scrn bliss2ndElevClosed
 {
 	img bliss2ndElevClosed.dib
 	left < link bliss2ndHallway1 >
-	hotzone < rect 105 180 128 219 link bliss2ndElevOpen sound elevatorOpen.wav >
+	hotzone < rect 105 180 128 219 link bliss2ndElevOpen sound elevatorOpen.wav cursor 5 >
 
 }
 
@@ -1288,8 +1288,8 @@ scrn q3-q4
 
      left  < link q3-q6 >  
      right  < link q3-q2 >  
-     hotzone  < rect 111 65 397 240 link q4-ru1 >  
-     hotzone < rect 105 295 424 374 link brickClue >	
+     hotzone < rect 111 65 397 240 link q4-ru1 >  
+     hotzone < rect 105 241 424 374 link brickClue cursor 4 >	
 }
 scrn q3-q5
 {
@@ -1384,8 +1384,8 @@ scrn q4-q3
 
      left  < link q4-ru1 >  
      right  < link q4-ru1 >  
-     hotzone  < rect 111 65 397 240 link q3-q5 >  
-     hotzone < rect 105 295 424 374 link brickClue2 >
+     hotzone < rect 111 65 397 240 link q3-q5 >  
+     hotzone < rect 105 241 424 374 link brickClue2 cursor 4 >
 }
 
 scrn ArrayGame_result
@@ -1717,7 +1717,7 @@ scrn ul3-ul2
 {
      img ul3-ul2.dib
 
-     hotzone < rect 114 175 138 275 link statue >
+     hotzone < rect 80 125 172 275 link statue cursor 4 >
      right < link ul3-ru5 >
      hotzone < rect 212 160 380 275  link ul2-ul1 >
 
@@ -1779,7 +1779,7 @@ scrn lib1-doors
      left < link lib1-lib2 >
      right < link lib1-bl6 >
      hotzone < rect 262 180 355 284 link libDoorsClosed >
-     hotzone < rect 374 238 401 290 link callbox >	
+     hotzone < rect 362 238 414 290 link callbox cursor 4 >	
      
 }
 
@@ -1809,58 +1809,58 @@ scrn libDoorsOpen
 
 scrn callbox
 {	img callbox.dib
-	hotzone < rect 178 119 215 155 link callbox2 sound pad1.wav > # 1
-	hotzone < rect 224 119 259 155 link callbox sound pad2.wav > #2
-	hotzone < rect 270 119 306 155 link callbox sound pad3.wav > #3
-	hotzone < rect 178 165 215 202 link callbox sound pad4.wav > #4
-	hotzone < rect 224 165 259 202 link callbox sound pad5.wav > # 5
-	hotzone < rect 270 165 306 202 link callbox sound pad6.wav > #6
-	hotzone < rect 178 212 215 248 link callbox sound pad7.wav > # 7
-	hotzone < rect 224 212 259 248 link callbox sound pad8.wav > # 8
-	hotzone < rect 270 212 306 248 link callbox sound pad9.wav > # 9
+	hotzone < rect 178 119 215 155 link callbox2 sound pad1.wav cursor 5 > # 1
+	hotzone < rect 224 119 259 155 link callbox sound pad2.wav cursor 5 > #2
+	hotzone < rect 270 119 306 155 link callbox sound pad3.wav cursor 5 > #3
+	hotzone < rect 178 165 215 202 link callbox sound pad4.wav cursor 5 > #4
+	hotzone < rect 224 165 259 202 link callbox sound pad5.wav cursor 5 > # 5
+	hotzone < rect 270 165 306 202 link callbox sound pad6.wav cursor 5 > #6
+	hotzone < rect 178 212 215 248 link callbox sound pad7.wav cursor 5 > # 7
+	hotzone < rect 224 212 259 248 link callbox sound pad8.wav cursor 5 > # 8
+	hotzone < rect 270 212 306 248 link callbox sound pad9.wav cursor 5 > # 9
 	down < link lib1-doors >
 	
 }
 
 scrn callbox2
 {	img callbox.dib
-	hotzone < rect 178 119 215 155 link callbox sound pad1.wav > # 1
-	hotzone < rect 224 119 259 155 link callbox sound pad2.wav > #2
-	hotzone < rect 270 119 306 155 link callbox sound pad3.wav > #3
-	hotzone < rect 178 165 215 202 link callbox sound pad4.wav > #4
-	hotzone < rect 224 165 259 202 link callbox sound pad5.wav > # 5
-	hotzone < rect 270 165 306 202 link callbox sound pad6.wav > #6
-	hotzone < rect 178 212 215 248 link callbox sound pad7.wav > # 7
-	hotzone < rect 224 212 259 248 link callbox sound pad8.wav > # 8
-	hotzone < rect 270 212 306 248 link callbox3 sound pad9.wav > # 9
+	hotzone < rect 178 119 215 155 link callbox sound pad1.wav cursor 5 > # 1
+	hotzone < rect 224 119 259 155 link callbox sound pad2.wav cursor 5 > #2
+	hotzone < rect 270 119 306 155 link callbox sound pad3.wav cursor 5 > #3
+	hotzone < rect 178 165 215 202 link callbox sound pad4.wav cursor 5 > #4
+	hotzone < rect 224 165 259 202 link callbox sound pad5.wav cursor 5 > # 5
+	hotzone < rect 270 165 306 202 link callbox sound pad6.wav cursor 5 > #6
+	hotzone < rect 178 212 215 248 link callbox sound pad7.wav cursor 5 > # 7
+	hotzone < rect 224 212 259 248 link callbox sound pad8.wav cursor 5 > # 8
+	hotzone < rect 270 212 306 248 link callbox3 sound pad9.wav cursor 5 > # 9
 	down < link lib1-doors >
 	
 }
 scrn callbox3
 {	img callbox.dib
-	hotzone < rect 178 119 215 155 link callbox sound pad1.wav > # 1
-	hotzone < rect 224 119 259 155 link callbox sound pad2.wav > #2
-	hotzone < rect 270 119 306 155 link callbox sound pad3.wav > #3
-	hotzone < rect 178 165 215 202 link callbox sound pad4.wav > #4
-	hotzone < rect 224 165 259 202 link callbox sound pad5.wav > # 5
-	hotzone < rect 270 165 306 202 link callbox sound pad6.wav > #6
-	hotzone < rect 178 212 215 248 link callbox sound pad7.wav > # 7
-	hotzone < rect 224 212 259 248 link callbox sound pad8.wav > # 8
-	hotzone < rect 270 212 306 248 link callbox4 sound pad9.wav > # 9
+	hotzone < rect 178 119 215 155 link callbox sound pad1.wav cursor 5 > # 1
+	hotzone < rect 224 119 259 155 link callbox sound pad2.wav cursor 5 > #2
+	hotzone < rect 270 119 306 155 link callbox sound pad3.wav cursor 5 > #3
+	hotzone < rect 178 165 215 202 link callbox sound pad4.wav cursor 5 > #4
+	hotzone < rect 224 165 259 202 link callbox sound pad5.wav cursor 5 > # 5
+	hotzone < rect 270 165 306 202 link callbox sound pad6.wav cursor 5 > #6
+	hotzone < rect 178 212 215 248 link callbox sound pad7.wav cursor 5 > # 7
+	hotzone < rect 224 212 259 248 link callbox sound pad8.wav cursor 5 > # 8
+	hotzone < rect 270 212 306 248 link callbox4 sound pad9.wav cursor 5 > # 9
 	down < link lib1-doors >
 	
 }
 scrn callbox4
 {	img callbox.dib
-	hotzone < rect 178 119 215 155 link callbox sound pad1.wav > # 1
-	hotzone < rect 224 119 259 155 link callbox sound pad2.wav > #2
-	hotzone < rect 270 119 306 155 link callbox sound pad3.wav > #3
-	hotzone < rect 178 165 215 202 link callbox sound padWin.wav set libDoorsClosed=libDoorsUnlocked > #4
-	hotzone < rect 224 165 259 202 link callbox sound pad4.wav > # 5
-	hotzone < rect 270 165 306 202 link callbox sound pad5.wav > #6
-	hotzone < rect 178 212 215 248 link callbox sound pad6.wav > # 7
-	hotzone < rect 224 212 259 248 link callbox sound pad7.wav > # 8
-	hotzone < rect 270 212 306 248 link callbox sound pad8.wav > # 9
+	hotzone < rect 178 119 215 155 link callbox sound pad1.wav cursor 5 > # 1
+	hotzone < rect 224 119 259 155 link callbox sound pad2.wav cursor 5 > #2
+	hotzone < rect 270 119 306 155 link callbox sound pad3.wav cursor 5 > #3
+	hotzone < rect 178 165 215 202 link callbox sound padWin.wav set libDoorsClosed=libDoorsUnlocked cursor 5 > #4
+	hotzone < rect 224 165 259 202 link callbox sound pad4.wav cursor 5 > # 5
+	hotzone < rect 270 165 306 202 link callbox sound pad5.wav cursor 5 > #6
+	hotzone < rect 178 212 215 248 link callbox sound pad6.wav cursor 5 > # 7
+	hotzone < rect 224 212 259 248 link callbox sound pad7.wav cursor 5 > # 8
+	hotzone < rect 270 212 306 248 link callbox sound pad8.wav cursor 5 > # 9
 	down < link lib1-doors >
 	
 }
@@ -1940,10 +1940,10 @@ scrn lib2-libstone
 
      right < link libstone-lib2 >
      left < link libstone-lib2 >
-     hotzone < rect 89 202 189 268 link libstone-lookout >
-     hotzone < rect 302 202 387 268 link libstone-lookout >
+     hotzone < rect 89 90 189 370 link libstone-lookout >
+     hotzone < rect 302 90 387 370 link libstone-lookout >
 
-     hotzone < rect 200 175 293 206 link libstone >
+     hotzone < rect 200 144 293 237 link libstone cursor 4 >
      
 }
 
@@ -1960,11 +1960,11 @@ scrn libstone-lookout
 scrn backstone
 {
 	img backstone.dib
-	hotzone < rect 197 215 284 242 link lib-stone >
+	hotzone < rect 197 185 284 272 link lib-stone cursor 4 >
 	left < link libstone-lookout >
-	
-	hotzone < rect 93 1 108 374 link libstone-lib2 >
-     	hotzone < rect 375 1 430 374 link libstone-lib2 >
+	right < link libstone-lookout >
+	hotzone < rect 50 0 135 375 link libstone-lib2 >
+     	hotzone < rect 365 0 450 375 link libstone-lib2 >
  	
 }
 
@@ -2152,8 +2152,8 @@ scrn libcom2
 {
 	img libcom2.dib
 	left < link libcom4 >
-	hotzone < rect 70 156 336 202 link libcom3 >
-	hotzone < rect 392 204 488 286 link libhelin >
+	hotzone < rect 55 46 321 312 link libcom3 >
+	hotzone < rect 392 204 488 286 link libhelin cursor 4 >
 	
 }
 
@@ -2174,7 +2174,7 @@ scrn libcom-a
 	left < link libcom4 >
 	right < link libcom4 >
 	down < link libcom3 >
-	hotzone < rect 146 60 308 190 link libmon-a >
+	hotzone < rect 146 60 308 190 link libmon-a cursor 4 >
 	
 }
 
@@ -2184,7 +2184,7 @@ scrn libcom-b
 	left < link libcom4  >
 	right < link libcom4 >
 	down < link libcom3 >
-	hotzone < rect 160 48 358 216 link libmon-b >
+	hotzone < rect 160 48 358 216 link libmon-b cursor 4 >
 	
 }
 
@@ -2194,7 +2194,7 @@ scrn libcom-c
 	left < link libcom4 >
 	right < link libcom4 >
 	down < link libcom3 >
-	hotzone < rect 184 116 358 256 link libmon-c >
+	hotzone < rect 184 116 358 256 link libmon-c cursor 4 >
 	
 }
 
@@ -2203,7 +2203,7 @@ scrn libmon-a
 	img libmon-a.dib
 	music midifile9.mid
 
-	hotzone < rect 356 324 377 340 puzzle BoxGame >
+	hotzone < rect 335 308 398 356 puzzle BoxGame cursor 5 >
 	down < link libcom-a >
 	
 }
@@ -2361,7 +2361,7 @@ scrn unionHallDoorOpen
 	img unionHallDoorOpen.dib
 	left < link unionHallLeaving >
 	right < link unionHallLeaving >
-	hotzone < rect 131 77 348 203 puzzle EightQueens >
+	hotzone < rect 131 77 348 203 puzzle EightQueens cursor 5 >
 	
  }
 
@@ -2405,8 +2405,8 @@ scrn EightQueens_solved
 {
      img trophyShot.dib
 
-	hotzone < rect 194 174 342 366 link winner >
-	hotzone < rect 245 95 284 174 link winner >
+	hotzone < rect 194 174 342 366 link winner cursor 5 >
+	hotzone < rect 245 95 284 174 link winner cursor 5 >
 
 
 }
@@ -2577,7 +2577,7 @@ scrn union9-box
 
      left < link union8-union7 >
      right < link union8-union7 >
-     hotzone < rect 224 141 303 197 link  box >
+     hotzone < rect 185 113 342 225 link  box cursor 4 >
      
 }
 
@@ -2592,9 +2592,9 @@ scrn box
 scrn boxWithKey
 {
 	img boxWithKey.dib
-	hotzone < rect 176 193 206 233 link boxWithoutKey >
-	hotzone < rect 205 194 275 208 link boxWithoutKey >
-	hotzone < rect 273 176 311 226 link boxWithoutKey >
+	hotzone < rect 176 168 311 241 link boxWithoutKey cursor 5 >
+	
+	
 	down < link union9-box >
     
 }
@@ -2620,7 +2620,7 @@ scrn mail1-mail2
      right < link mail1-mail5 >
 
      forward < link mail2-mail3 >
-     hotzone < rect 439 147 500 375 link mailbox >
+     hotzone < rect 439 147 500 375 link mailbox cursor 4 >
      
 }
 
@@ -2628,7 +2628,7 @@ scrn mailbox
 {
 	img mailbox.dib
 	hotzone < rect 200 138 259 237 
-		    link mailbox-open >
+		    link mailbox-open cursor 5 >
 	down < link union5-mail1 > # mail1-mail2 >
 	
 }
@@ -2636,8 +2636,8 @@ scrn mailbox
 scrn mailbox-open
 {
 	img mailboxopen.dib
-	hotzone < rect 218 175 249 226 link letter >
-	hotzone < rect 200 138 259 237 link mailbox >
+	hotzone < rect 218 175 249 226 link letter cursor 4 >
+	hotzone < rect 200 138 259 237 link mailbox cursor 5 >
 	down < link union5-mail1 > # mail1-mail2 >
 	
 }
@@ -2867,7 +2867,7 @@ scrn ranger9-8
 scrn ranger10-11
 {
 	img ranger10-11.dib
-	hotzone < rect 35 68 69 241 link fuse >
+	hotzone < rect 35 68 69 241 link fuse cursor 4 >
 	hotzone < rect 0 67 24 301 link ranger10-9 >
 	right < link ranger10-20a >
 	forward < link ranger11-12 >
@@ -2882,21 +2882,21 @@ scrn fuse
 scrn fuse2
 {	img fuse2.dib
 	down < link fuse >
-	hotzone < rect 108 36 131 56 link fuse3 >
-	hotzone < rect 108 67 131 86 link fuse4 >
+	hotzone < rect 108 36 131 56 link fuse3 cursor 4 >
+	hotzone < rect 108 67 131 86 link fuse4 cursor 4 >
 	
 }
 scrn fuse4
 {	img fuse4.dib
 	down < link fuse2 >
-	hotzone < rect 108 36 131 56 link fuse5 >
+	hotzone < rect 108 36 131 56 link fuse5 cursor 4 >
 
 	
 }
 scrn fuse3
 {	img fuse3.dib
 	down < link fuse2 >
-	hotzone < rect 108 67 131 86 link fuse5 >
+	hotzone < rect 108 67 131 86 link fuse5 cursor 4 >
 
 	
 }
@@ -2916,7 +2916,7 @@ scrn ranger11-12
 scrn ranger12-13
 {	img  ranger12-13.dib 
 	left < link ranger13-12 >
-	hotzone < rect 358 235 409 243 link garbagecan >
+	hotzone < rect 358 235 409 243 link garbagecan cursor 4 >
 	hotzone < rect 386 95 410 206 link closet >
 	
 }
@@ -2929,7 +2929,7 @@ scrn closet
 scrn closet2
 {	img closet2.dib
 	down < link closet sound doorclosing.wav >
-	hotzone < rect 258 89 361 165 link closet3 >
+	hotzone < rect 258 89 361 165 link closet3 cursor 4 >
 	right < link ranger13-12 >
 	up < link closet5 >
 	
@@ -3001,7 +3001,7 @@ scrn ranger20-21_dark
 	left < link ranger21-20 >
 	right < link ranger21-20 >
 	hotzone < rect 227 60 326 299 link ranger22-23_dark >
-	hotzone < rect 179 102 201 138 sound lightSwitch.wav set ranger20-21=ranger20-21_light >
+	hotzone < rect 179 102 201 138 sound lightSwitch.wav set ranger20-21=ranger20-21_light cursor 5 >
 	
 }
 
@@ -3012,7 +3012,7 @@ scrn ranger20-21
 	left < link ranger21-20 >
 	right < link ranger21-20 >
 	hotzone < rect 227 60 326 299 link ranger22-23_dark >
-	hotzone < rect 179 102 201 138 sound lightSwitch.wav set ranger20-21=ranger20-21_light >
+	hotzone < rect 179 102 201 138 sound lightSwitch.wav set ranger20-21=ranger20-21_light cursor 5 >
 	
 }
 
@@ -3023,7 +3023,7 @@ scrn ranger20-21_light
 	left < link ranger21-20 >
 	right < link ranger21-20 >
 	hotzone < rect 227 60 326 299 link ranger22-23 >
-	hotzone < rect 179 102 201 138 sound lightSwitch.wav set ranger20-21=ranger20-21_dark >
+	hotzone < rect 179 102 201 138 sound lightSwitch.wav set ranger20-21=ranger20-21_dark cursor 5 >
 	
 }
 

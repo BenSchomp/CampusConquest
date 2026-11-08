@@ -22,7 +22,7 @@ const { chromium } = require('playwright');
   const zone = await page.evaluate(() => currentScreen.zones.find((z) => z.data === 'lip16-doorsopen').rect);
   const [x, y] = [zone[0] + 2, (zone[1] + zone[3]) >> 1];
   await page.mouse.move(x, y); await page.waitForTimeout(200);
-  const pointer = await page.evaluate(() => canvas.style.cursor.match(/cursor(\d+)/)[1]);
+  const pointer = await page.evaluate(() => canvas.style.cursor.match(/cursor(\w+)\.png/)[1]);
   await page.mouse.click(x, y); await page.waitForTimeout(1200);
   console.log({ failures, pointer, after: await page.evaluate(() => currentScreen.name) });
   await browser.close();

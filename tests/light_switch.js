@@ -14,13 +14,13 @@ const shots = process.argv[2];
   // Hallway: no switch spot any more; the left edge is just a turn.
   await page.evaluate(() => { currentScreen = screenNamed('ranger21-20'); return showCurrentScreen(); });
   await page.mouse.move(70 + 43, 50 + 230); await page.waitForTimeout(200);
-  report.hallwayPointer = await page.evaluate(() => canvas.style.cursor.match(/cursor(\d+)/)[1]);
+  report.hallwayPointer = await page.evaluate(() => canvas.style.cursor.match(/cursor(\w+)\.png/)[1]);
   await page.screenshot({ path: `${shots}/ls-hallway.png` });
   // Turn around (left) to the doorway.
   await page.mouse.click(70 + 20, 50 + 200); await page.waitForTimeout(1200);
   report.doorway = await page.evaluate(() => [currentScreen.name, currentScreen.image]);
   await page.mouse.move(70 + 190, 50 + 120); await page.waitForTimeout(200);
-  report.switchPointer = await page.evaluate(() => canvas.style.cursor.match(/cursor(\d+)/)[1]);
+  report.switchPointer = await page.evaluate(() => canvas.style.cursor.match(/cursor(\w+)\.png/)[1]);
   await page.mouse.click(70 + 190, 50 + 120); await page.waitForTimeout(700);
   report.afterOn = await page.evaluate(() => [currentScreen.image, currentPicture.image.src.split('/').pop()]);
   await page.screenshot({ path: `${shots}/ls-on.png` });

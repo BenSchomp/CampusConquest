@@ -9,9 +9,9 @@ Usage: python3 build_assets.py <original Campus_Conquest dir> <web output dir>
                        with palette index 0 transparent (the DirectDraw colour key)
 - sounds/*.wav      -> assets/sounds/<lowercase name>.wav (copied as-is)
 - sounds/*.mid      -> assets/music/<lowercase name>.mp3 (rendered with FluidSynth, General MIDI)
-- mapData.txt       -> copied unchanged
+- mapData.txt       -> copied with MAP_DATA_FIXES, HOTZONE_RECT_CHANGES and HOTZONE_POINTERS applied
 """
-import pathlib, shutil, subprocess, sys
+import pathlib, re, shutil, subprocess, sys
 from PIL import Image, ImageDraw, ImageFilter
 
 source_dir, output_dir = pathlib.Path(sys.argv[1]), pathlib.Path(sys.argv[2])
@@ -114,11 +114,141 @@ MAP_DATA_FIXES = [
     ('\thotzone < rect 227 60 326 299 link ranger22-23 >\r\n',
      '\thotzone < rect 227 60 326 299 link ranger22-23 >\r\n'
      '\thotzone < rect 179 102 201 138 sound lightSwitch.wav set ranger20-21=ranger20-21_dark >\r\n'),
+    # backstone had no turn-right strip; turning right faces the lookout, like turning left.
+    ('\tleft < link libstone-lookout >\r\n\t\r\n\thotzone < rect 93 1 108 374',
+     '\tleft < link libstone-lookout >\r\n\tright < link libstone-lookout >\r\n\thotzone < rect 93 1 108 374'),
 ]
+
+# Click spots resized so they cover what they show (image coordinates). None removes a spot.
+HOTZONE_RECT_CHANGES = {
+    'q3-q4': {(105, 295, 424, 374): (105, 241, 424, 374)},     # brick clue reaches up to the walk spot
+    'q4-q3': {(105, 295, 424, 374): (105, 241, 424, 374)},
+    'ul3-ul2': {(114, 175, 138, 275): (80, 125, 172, 275)},     # statue and its base
+    'lib1-doors': {(374, 238, 401, 290): (362, 238, 414, 290)},  # call box: square
+    'lib2-libstone': {(89, 202, 189, 268): (89, 90, 189, 370),   # walk past the monument: its full height
+                      (302, 202, 387, 268): (302, 90, 387, 370),
+                      (200, 175, 293, 206): (200, 144, 293, 237)},  # inscription: square
+    'backstone': {(93, 1, 108, 374): (50, 0, 135, 375),         # walk spots fill the gaps between the
+                  (375, 1, 430, 374): (365, 0, 450, 375),       # turn strips and the stone
+                  (197, 215, 284, 242): (197, 185, 284, 272)},
+    'libcom2': {(70, 156, 336, 202): (55, 46, 321, 312)},
+    'libmon-a': {(356, 324, 377, 340): (335, 308, 398, 356)},   # power button: 3x
+    'union9-box': {(224, 141, 303, 197): (185, 113, 342, 225)},  # box: 2x
+    'boxWithKey': {(176, 193, 206, 233): (176, 168, 311, 241),   # one spot for the whole key
+                   (205, 194, 275, 208): None, (273, 176, 311, 226): None},
+}
+
+# Pointers for click spots that are not walking: 4 = magnifier (look closer), 5 = hand (press / use).
+# A screen maps to one pointer for all its spots, or to {spot rect: pointer}. Walking spots keep
+# the forward arrow.
+MAGNIFIER, HAND = 4, 5
+HOTZONE_POINTERS = {
+    'puzzleTest': HAND,
+    'lip13-12': MAGNIFIER,
+    'liproom1-2': MAGNIFIER,
+    'clock1': HAND,
+    'clock2': HAND,
+    'clock3': HAND,
+    'clock4': HAND,
+    'clock5': HAND,
+    'clock6': HAND,
+    'clock7': HAND,
+    'clock8': HAND,
+    'clock9': HAND,
+    'blissDoor': {(75, 61, 118, 118): MAGNIFIER},
+    'fire': HAND,
+    'fire1': HAND,
+    'bliss6-7': {(32, 237, 185, 338): MAGNIFIER},
+    'blissBath1': MAGNIFIER,
+    'blissBathStall': HAND,
+    'blissSinkOff': HAND,
+    'blissSinkOn': HAND,
+    'blissElevClosed': HAND,
+    'blissElevClosed2': HAND,
+    'blissElevInside': MAGNIFIER,
+    'blissElevInside2ndFloor': MAGNIFIER,
+    'blissElevButton': HAND,
+    'blissElevButton2nd': HAND,
+    'elev2ndFloor': HAND,
+    'elevBaseFloor': HAND,
+    'bliss2ndElevClosed': HAND,
+    'q3-q4': {(105, 295, 424, 374): MAGNIFIER},
+    'q4-q3': {(105, 295, 424, 374): MAGNIFIER},
+    'ul3-ul2': {(114, 175, 138, 275): MAGNIFIER},
+    'lib1-doors': {(374, 238, 401, 290): MAGNIFIER},
+    'callbox': HAND,
+    'callbox2': HAND,
+    'callbox3': HAND,
+    'callbox4': HAND,
+    'lib2-libstone': {(200, 175, 293, 206): MAGNIFIER},
+    'backstone': {(197, 215, 284, 242): MAGNIFIER},
+    'libcom2': {(392, 204, 488, 286): MAGNIFIER},
+    'libcom-a': MAGNIFIER,
+    'libcom-b': MAGNIFIER,
+    'libcom-c': MAGNIFIER,
+    'libmon-a': HAND,
+    'unionHallDoorOpen': HAND,
+    'EightQueens_solved': HAND,
+    'union9-box': MAGNIFIER,
+    'boxWithKey': HAND,
+    'mail1-mail2': MAGNIFIER,
+    'mailbox': HAND,
+    'mailbox-open': {(218, 175, 249, 226): MAGNIFIER, (200, 138, 259, 237): HAND},
+    'ranger10-11': {(35, 68, 69, 241): MAGNIFIER},
+    'fuse2': MAGNIFIER,
+    'fuse4': MAGNIFIER,
+    'fuse3': MAGNIFIER,
+    'ranger12-13': {(358, 235, 409, 243): MAGNIFIER},
+    'closet2': MAGNIFIER,
+    'ranger20-21_dark': {(179, 102, 201, 138): HAND},
+    'ranger20-21': {(179, 102, 201, 138): HAND},
+    'ranger20-21_light': {(179, 102, 201, 138): HAND},
+}
+
 map_data = (source_dir / 'mapData.txt').read_bytes().decode('latin-1')
 for broken, fixed in MAP_DATA_FIXES:
     if map_data.count(broken) != 1:
         raise SystemExit(f'mapData.txt fix no longer applies: {broken!r}')
     map_data = map_data.replace(broken, fixed)
+
+HOTZONE_PATTERN = re.compile(r'hotzone\s*<\s*rect\s+(\d+)\s+(\d+)\s+(\d+)\s+(\d+)([^>]*)>')
+
+def edit_hotzones(map_data, screen_name, edit_hotzone):
+    """Call edit_hotzone(rect, rest_of_hotzone) for each rect hotzone of one scrn block; it returns
+    the replacement text. Comment-only lines are left alone, as the engine ignores them."""
+    blocks = list(re.finditer(r'scrn\s+' + re.escape(screen_name) + r'\s*\{[^}]*\}', map_data))
+    if len(blocks) != 1:
+        raise SystemExit(f'mapData.txt: expected one scrn {screen_name}, found {len(blocks)}')
+    block = blocks[0]
+    def replace(match):
+        line_start = block.group(0).rfind('\n', 0, match.start()) + 1
+        if '#' in block.group(0)[line_start:match.start()]:
+            return match.group(0)
+        return edit_hotzone(tuple(int(match.group(i)) for i in range(1, 5)), match.group(5))
+    edited = HOTZONE_PATTERN.sub(replace, block.group(0))
+    return map_data[:block.start()] + edited + map_data[block.end():]
+
+def hotzone_text(rect, rest):
+    return 'hotzone < rect {} {} {} {}{}>'.format(*rect, rest)
+
+for screen_name, changes in HOTZONE_RECT_CHANGES.items():
+    unused = set(changes)
+    def resize(rect, rest):
+        if rect not in changes: return hotzone_text(rect, rest)
+        unused.discard(rect)
+        return '' if changes[rect] is None else hotzone_text(changes[rect], rest)
+    map_data = edit_hotzones(map_data, screen_name, resize)
+    if unused: raise SystemExit(f'mapData.txt: no hotzone {unused} in scrn {screen_name}')
+
+for screen_name, pointers in HOTZONE_POINTERS.items():
+    resized = HOTZONE_RECT_CHANGES.get(screen_name, {})
+    pointer_by_rect = {resized.get(rect, rect): pointer for rect, pointer in pointers.items()} if isinstance(pointers, dict) else None
+    unused = set(pointer_by_rect or ())
+    def point(rect, rest):
+        pointer = pointers if pointer_by_rect is None else pointer_by_rect.get(rect)
+        unused.discard(rect)
+        return hotzone_text(rect, rest if pointer is None else f'{rest.rstrip()} cursor {pointer} ')
+    map_data = edit_hotzones(map_data, screen_name, point)
+    if unused: raise SystemExit(f'mapData.txt: no hotzone {unused} in scrn {screen_name}')
 (output_dir / 'mapData.txt').write_bytes(map_data.encode('latin-1'))
 print('done')

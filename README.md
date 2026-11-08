@@ -40,6 +40,13 @@ Where a hotzone overlaps a forward/left/right/down strip, the hotzone now always
 and the pointer shows it; the 2001 engine clicked whichever came first in `mapData.txt` and showed
 the last one's pointer, so some doors and switches showed a turn arrow or lost the click.
 
+Two pointers were added in the same black-and-white style as the originals (`tools/draw_cursors.py`):
+a magnifier for spots that take a closer look (mapData `cursor 4`) and a pointing hand for spots that
+press or use something (`cursor 5`); the forward arrow is kept for walking. Which spot gets which is
+listed in `HOTZONE_POINTERS` in `tools/build_assets.py`. A few click spots were resized to cover what
+they show (`HOTZONE_RECT_CHANGES`), and the back of the library stone (`backstone`) gained a
+turn-right strip.
+
 ## Rebuilding the assets
 
 Needs Python 3 with Pillow, FluidSynth with the FluidR3_GM soundfont, and ffmpeg.
