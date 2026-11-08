@@ -197,7 +197,7 @@ let state = STATE.INTRO;
 let currentPicture = null;        // { image, fullScreen }
 let overlay = { color: '#000', alpha: 0 };
 let incomingPicture = null;       // { image, alpha } while crossfading to the next fullscreen picture
-let isWaitingForStartClick = true; // the ram logo with "Click to start" under it
+let isWaitingForStartClick = true; // the ram logo, "Campus Conquest" above it and "Click to start" under it
 const titleHighlights = { new: false, load: false };
 
 const isFullScreenState = () => state === STATE.TITLE || state === STATE.ENDING || state === STATE.INTRO;
@@ -222,9 +222,12 @@ function render() {
     context.globalAlpha = 1;
   }
   if (isWaitingForStartClick && currentPicture) {
+    context.textAlign = 'center';
+    context.fillStyle = '#fff';
+    context.font = '24px Georgia, serif';
+    context.fillText('Campus Conquest', SCREEN_WIDTH / 2, 175);
     context.fillStyle = '#ccc';
     context.font = '18px Georgia, serif';
-    context.textAlign = 'center';
     context.fillText('Click to start', SCREEN_WIDTH / 2, 345);
     context.textAlign = 'start';
   }

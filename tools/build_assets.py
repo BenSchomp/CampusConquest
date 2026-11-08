@@ -65,6 +65,21 @@ def remove_title_exit():
 
 remove_title_exit()
 
+def align_start_ram():
+    """Line the black start-screen ram (ram.dib) up with the blue one on ram2.dib, so the intro's fade
+    changes the ram's colour in place: it sat 1 px left of and 13 px above the blue ram. The almost-
+    black (3,3,3) square behind it, visible during the fade, is painted pure black."""
+    ram = Image.open(source_dir / 'images' / 'ram.dib').convert('RGB')
+    pixels = ram.load()
+    for y in range(ram.height):
+        for x in range(ram.width):
+            if pixels[x, y] == (3, 3, 3): pixels[x, y] = (0, 0, 0)
+    aligned = Image.new('RGB', ram.size, (0, 0, 0))
+    aligned.paste(ram, (1, 13))
+    aligned.save(assets / 'images' / 'ram.png', optimize=True)
+
+align_start_ram()
+
 def cut_sprite(template_name, background_name, left, top, width, height, sprite_name):
     template = Image.open(source_dir / 'images' / template_name)
     background_palette = Image.open(source_dir / 'images' / background_name).getpalette()
