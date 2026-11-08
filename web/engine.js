@@ -30,6 +30,15 @@ const CURSOR_ARROW = cursorCss(133);
 const CURSOR_MENU = cursorCss(135);
 let requestedCursor = CURSOR_ARROW;
 const setCursor = (css) => { requestedCursor = css; };
+// Browsers can flash the default arrow whenever a url() cursor is assigned, even an identical one,
+// so the canvas cursor is only written when it actually changes.
+let shownCursor = null;
+function showCursor(css) {
+  if (css === shownCursor) return;
+  shownCursor = css;
+  canvas.style.cursor = css;
+}
+for (const name of Object.keys(CURSOR_HOTSPOTS)) new Image().src = `assets/cursors/cursor${name}.png`;
 
 // ---------------------------------------------------------------------------------------------
 // Settings (the top of mapData.txt) and the menu's Music / Sound toggles.
@@ -405,7 +414,7 @@ async function clickZone(zone) {
 
 async function waitForSound(finished) { // state WAIT_SOUND: input ignored until the elevator sound ends
   state = STATE.WAIT_SOUND;
-  canvas.style.cursor = 'none';
+  showCursor('none');
   await (finished || Promise.resolve());
   if (state === STATE.WAIT_SOUND) state = STATE.GAME;
   await gameMouse(300, 240, false);
@@ -843,7 +852,7 @@ async function dispatchMouse(x, y, isClick) { // window procedure FUN_00402a10
   } finally {
     if (isClick) busy = false;
   }
-  canvas.style.cursor = state === STATE.WAIT_SOUND ? 'none' : requestedCursor;
+  showCursor(state === STATE.WAIT_SOUND ? 'none' : requestedCursor);
 }
 
 canvas.addEventListener('pointermove', (event) => {
