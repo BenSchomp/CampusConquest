@@ -1,4 +1,5 @@
-// Moving the mouse inside one click spot must not change the pointer at all.
+// The game's pointer is an <img> that follows the mouse (the canvas hides the system pointer):
+// moving inside one click spot never swaps its picture, and its hotspot sits on the mouse.
 const { chromium } = require('playwright');
 (async () => {
   const browser = await chromium.launch(); const page = await browser.newPage({ viewport: { width: 640, height: 480 } });
@@ -9,14 +10,17 @@ const { chromium } = require('playwright');
   await page.evaluate(() => { currentScreen = screenNamed('callbox'); state = STATE.GAME; return showCurrentScreen(); });
   await page.mouse.move(250, 185); await page.waitForTimeout(300);
   await page.evaluate(() => {
-    window.cursorWrites = [];
-    const original = Object.getOwnPropertyDescriptor(CSSStyleDeclaration.prototype, 'cursor');
-    Object.defineProperty(canvas.style, 'cursor', { configurable: true, get() { return original.get.call(this); },
-      set(value) { window.cursorWrites.push(value.match(/cursor(\w+)\.png/)?.[1] || value); original.set.call(this, value); } });
+    window.pointerSwaps = [];
+    new MutationObserver(() => window.pointerSwaps.push(pointerImage.src)).observe(pointerImage, { attributeFilter: ['src'] });
   });
   for (let i = 0; i < 40; i++) await page.mouse.move(250 + (i % 10), 185 + (i % 7));
   await page.waitForTimeout(300);
-  const writes = await page.evaluate(() => window.cursorWrites);
-  console.log({ writes: writes.length, distinct: [...new Set(writes)] });
+  const result = await page.evaluate(() => {
+    const box = pointerImage.getBoundingClientRect();
+    return { swaps: window.pointerSwaps.length, picture: pointerImage.src.match(/cursor(\w+)\.png/)[1], hidden: pointerImage.hidden,
+             hotspotAt: [box.left + shownCursor.hotspotX, box.top + shownCursor.hotspotY], systemCursor: getComputedStyle(canvas).cursor };
+  });
+  await page.mouse.move(250, 470); await page.mouse.move(-5, -5);
+  console.log({ ...result, expectedHotspotAt: [250 + 39 % 10, 185 + 39 % 7] });
   await browser.close();
 })();

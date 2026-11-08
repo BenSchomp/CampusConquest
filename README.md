@@ -25,8 +25,9 @@ predefined hotzone rectangles, the title screen and menu buttons, the five puzzl
 Presidents, Eight Queens, Towers of Hanoi) including the computer's quirky Array-game strategy,
 the story triggers (arriving at `letter`, `ru7-ru6` and `boxWithoutKey`), the elevator's
 "wait for the sound to finish" state, the palette fades, and the intro. The cursors are the
-original ones, extracted from the exe's resources. Saves go to the browser's localStorage
-instead of `campus.sav`.
+original ones, extracted from the exe's resources; the page draws them as an image that follows the
+mouse, because Chrome flickers CSS image cursors while the mouse moves. Saves go to the browser's
+localStorage instead of `campus.sav`.
 
 Known differences from 2001: MIDI music is pre-rendered with the FluidR3 General MIDI soundfont
 (the original used the Microsoft GS Wavetable synth), and the menu's "Exit" returns to the title screen

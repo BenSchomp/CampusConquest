@@ -25,7 +25,7 @@ const { chromium } = require('playwright');
   for (const spot of spots) {
     await page.evaluate((name) => { currentScreen = screenNamed(name); state = STATE.GAME; }, spot.screen);
     await page.mouse.move(0, 0); await page.mouse.move(spot.x, spot.y);
-    const shown = await page.evaluate(() => (canvas.style.cursor.match(/cursor(\w+)\.png/) || [])[1]);
+    const shown = await page.evaluate(() => (pointerImage.src.match(/cursor(\w+)\.png/) || [])[1]);
     if (shown !== spot.expected) wrong.push({ ...spot, shown });
   }
   const clicks = {};

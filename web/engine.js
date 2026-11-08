@@ -20,25 +20,46 @@ const context = canvas.getContext('2d');
 // web version (tools/draw_cursors.py). Index order matches mapData's `cursor N`.
 const CURSOR_HOTSPOTS = { 104: [14, 19], 105: [14, 1], 131: [1, 16], 132: [30, 16], 133: [1, 1], 135: [0, 10],
                           magnifier: [12, 12], hand: [14, 3] };
-const cursorCss = (cursorName) => {
+const cursorNamed = (cursorName) => {
   const [hotspotX, hotspotY] = CURSOR_HOTSPOTS[cursorName];
-  return `url(assets/cursors/cursor${cursorName}.png) ${hotspotX} ${hotspotY}, default`;
+  return { src: `assets/cursors/cursor${cursorName}.png`, hotspotX, hotspotY };
 };
 // forward, back, left, right, magnifier (look closer), hand (press / use)
-const CURSOR_BY_ID = [cursorCss(105), cursorCss(104), cursorCss(131), cursorCss(132), cursorCss('magnifier'), cursorCss('hand')];
-const CURSOR_ARROW = cursorCss(133);
-const CURSOR_MENU = cursorCss(135);
+const CURSOR_BY_ID = [cursorNamed(105), cursorNamed(104), cursorNamed(131), cursorNamed(132), cursorNamed('magnifier'), cursorNamed('hand')];
+const CURSOR_ARROW = cursorNamed(133);
+const CURSOR_MENU = cursorNamed(135);
+const CURSOR_HIDDEN = null;
 let requestedCursor = CURSOR_ARROW;
-const setCursor = (css) => { requestedCursor = css; };
-// Browsers can flash the default arrow whenever a url() cursor is assigned, even an identical one,
-// so the canvas cursor is only written when it actually changes.
-let shownCursor = null;
-function showCursor(css) {
-  if (css === shownCursor) return;
-  shownCursor = css;
-  canvas.style.cursor = css;
+const setCursor = (cursor) => { requestedCursor = cursor; };
+// Chrome on macOS flickers CSS url() cursors to the system arrow, so the page hides the system
+// pointer everywhere (index.html) and the game's pointer is an <img> that follows the mouse: the
+// game's choice over the picture, the game's arrow over the rest of the page.
+const pointerImage = document.getElementById('pointer');
+let shownCursor = CURSOR_ARROW;   // what the game wants over the canvas
+let isMouseInPage = false;
+let isMouseOverCanvas = false;
+let mouseClientX = 0, mouseClientY = 0;
+function placePointer() {
+  const cursor = isMouseOverCanvas ? shownCursor : CURSOR_ARROW;
+  pointerImage.hidden = !isMouseInPage || cursor === CURSOR_HIDDEN;
+  if (pointerImage.hidden) return;
+  if (!pointerImage.src.endsWith(cursor.src)) pointerImage.src = cursor.src;
+  pointerImage.style.transform = `translate(${mouseClientX - cursor.hotspotX}px, ${mouseClientY - cursor.hotspotY}px)`;
 }
-for (const name of Object.keys(CURSOR_HOTSPOTS)) new Image().src = `assets/cursors/cursor${name}.png`;
+function showCursor(cursor) {
+  if (cursor === shownCursor) return;
+  shownCursor = cursor;
+  placePointer();
+}
+window.addEventListener('pointermove', (event) => {
+  if (event.pointerType !== 'mouse') return;
+  isMouseInPage = true;
+  isMouseOverCanvas = event.target === canvas;
+  mouseClientX = event.clientX; mouseClientY = event.clientY;
+  placePointer();
+});
+document.documentElement.addEventListener('pointerleave', () => { isMouseInPage = false; placePointer(); });
+for (const name of Object.keys(CURSOR_HOTSPOTS)) new Image().src = cursorNamed(name).src;
 
 // ---------------------------------------------------------------------------------------------
 // Settings (the top of mapData.txt) and the menu's Music / Sound toggles.
@@ -413,7 +434,7 @@ async function clickZone(zone) {
 
 async function waitForSound(finished) { // state WAIT_SOUND: input ignored until the elevator sound ends
   state = STATE.WAIT_SOUND;
-  showCursor('none');
+  showCursor(CURSOR_HIDDEN);
   await (finished || Promise.resolve());
   if (state === STATE.WAIT_SOUND) state = STATE.GAME;
   await gameMouse(300, 240, false);
@@ -849,7 +870,7 @@ async function dispatchMouse(x, y, isClick) { // window procedure FUN_00402a10
   } finally {
     if (isClick) busy = false;
   }
-  showCursor(state === STATE.WAIT_SOUND ? 'none' : requestedCursor);
+  showCursor(state === STATE.WAIT_SOUND ? CURSOR_HIDDEN : requestedCursor);
 }
 
 canvas.addEventListener('pointermove', (event) => {
