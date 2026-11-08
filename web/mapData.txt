@@ -1,0 +1,3189 @@
+# Define environment variables
+LOG					OFF
+LOG_MAP_BUILD		OFF
+LOG_MOUSE_CLICKS	OFF
+SHOW_INTRO			ON
+SCREEN_OUTPUT		OFF
+MUSIC				ON
+SOUND				ON
+
+# starting location
+start union8-union7
+
+scrn puzzleTest
+{
+	img puzzleTesting.dib
+	
+	hotzone < rect 27 120 453 150 puzzle P >
+	hotzone < rect 27 162 453 192 puzzle B >
+	hotzone < rect 27 200 453 230 puzzle T >
+	hotzone < rect 27 243 453 273 puzzle A >
+	hotzone < rect 27 283 453 313 puzzle E >
+	
+}
+
+###################################
+## Inside Lippit 
+###################################
+
+scrn lip1-10
+{
+	img lip1-10.dib
+	
+	forward < link lip10-9 >
+	hotzone < rect 0 135 74 257 link lip9-8 >
+	hotzone < rect 0 311 89 372 link lip1-20 cursor 2 >
+	right < link lip10-shut >
+
+	music midifile6.mid
+}
+scrn lip10-shut
+{	img lip10-shut.dib
+	forward < link lip10-out sound dooropening.wav >
+	left < link lip1-10 >
+	right < link lip1-20 >
+	
+}
+scrn lip10-out
+{	img lip10-out.dib
+	forward < link lipdoor-bl3 sound doorclosing.wav >
+	left < link lip1-10 >
+	right < link lip1-20 >
+	down < link lip10-shut sound doorclosing.wav >
+	
+}
+
+scrn lipdoor-bl3
+{	img lipdoor-bl3.dib
+	hotzone < rect 148 27 397 232 link bl3-q5 >
+	right < link PresPuzzle_result >
+	left < link PresPuzzle_result >
+
+	music outside.mid
+	
+}
+scrn lip10-9
+{
+	img lip10-9.dib
+	
+	hotzone < rect 198 0 385 289 sound lockedDoor.wav >
+	left < link lip9-8 >
+	right < link lipadd2 >
+	down < link lip1-10 >
+	
+}
+scrn lip9-8
+{
+	img lip9-8.dib
+	
+	left < link lipadd2 >
+	right < link lip10-9 >
+	forward < link lip8-7 >
+}
+scrn lipadd2
+{	img lipadd2.dib
+	hotzone < rect 134 9 251 189 link lip10-shut >
+	hotzone < rect 461 189 497 313 link lip9-8 cursor 3 >
+	hotzone < rect 334 109 431 260 link lip1-20 >
+	left < link lip10-9 >
+	
+}	
+scrn lip8-7
+{
+	img lip8-7.dib
+
+	left < link lip7-8 >
+	right < link lip7-8 >
+	forward < link lip7-6 >
+}
+scrn lip7-6
+{
+	img lip7-6.dib
+	
+left < link lip6-7 >
+right < link lip6-7 >
+	forward < link lip6-5 >
+
+}
+scrn lip6-5
+{
+	img lip6-5.dib
+	
+	left < link lip5-6 >
+	right < link lip5-6 >
+	forward < link lip5-4 >
+}
+scrn lip5-4
+{
+	img lip5-4.dib
+	
+	hotzone < rect 80 0 247 274 sound lockedDoor.wav  >
+	left < link lip4-5 >
+	right < link lip4-5 >
+	
+	
+}
+scrn lip4-5
+{
+	img lip4-5.dib
+	
+	right < link lip5-4 >
+	forward < link lip5-6 >
+}
+scrn lip5-6
+{
+	img lip5-6.dib
+	
+	right < link lip6-5 >
+	forward < link lip6-7 >
+}
+scrn lip6-7
+{
+	img lip6-7.dib
+	
+	forward < link lip7-8 >
+	right < link lip7-6 >
+	left < link lip7-6 >
+
+}
+scrn lip7-8
+{
+	img lip7-8.dib
+	
+	right < link lip8-7 >
+	# missing picture
+	forward < link lipadd2 >
+	
+}
+scrn lip1-20
+{
+	img lip1-20.dib
+	
+	forward < link lip20-19 >
+	right < link lip1-10 >
+	left < link lip10-shut >
+}
+scrn lip20-19
+{
+	img lip20-19.dib
+	
+	right < link lip20-1 >
+	forward < link lip19-18 >
+}
+scrn lip20-1
+{
+	img lip20-1.dib
+		
+	left < link lip20-19 >
+	forward < link lip10-shut >
+}
+scrn lip19-18
+{
+	img lip19-18.dib
+	
+	left < link lip19-20 >
+	right < link lip19-20 >
+	 forward < link lip18-17 >
+}
+scrn lip19-20
+{
+	img lip19-20.dib
+	
+	forward < link lip20-1 >
+	left < link lip19-18 >
+}
+scrn lip18-17
+{
+	img lip18-17.dib
+	
+	hotzone < rect 182 64 307 199 link lip15-14 >
+	hotzone < rect 346 117 380 263 link lip17-16 >
+	left < link lip18-19 >
+	right < link lip18-19 >
+}
+scrn lip16-hall
+{	img lip16-hall.dib
+	forward < link lip17-18 >
+	left < link lip16-doors >
+	right < link lip16-doors >
+}
+scrn lip18-19
+{
+	img lip18-19.dib
+	
+	forward < link lip19-20 >
+	left < link lip18-17 >
+	right < link lip18-17 >
+}
+scrn lip15-14
+{
+	img lip15-14.dib
+	
+	left < link lip15-17 >
+	right < link lip15-17 >
+	forward < link lip14-13 >
+}
+scrn lip14-13
+{
+	img lip14-13.dib
+	
+	forward < link lip13-12 >
+	left < link lip14-15 >
+	right < link lip14-15 >
+}
+scrn lip14-15
+{
+	img lip14-15.dib
+	
+	hotzone < rect 262 5 362 361 link lip15-17 >
+	left < link lip14-13 >
+	right < link lip14-13 >
+}
+scrn lip13-12
+{
+	img lip13-12.dib
+	
+	hotzone < rect 43 117 113 251 link lip12-sign >
+	right < link lip13-14 >
+	left < link lip13-14 >
+	
+}
+scrn lip13-14
+{
+	img lip13-14.dib
+	
+	forward < link lip14-15 >
+	left < link lip13-12 >
+}
+scrn lip12-sign
+{
+	img lip12-sign.dib
+	
+	down < link lip13-12 >
+}
+
+scrn lip12-door
+{
+	img lip12-door.dib
+	down < link lip13-12 >
+	forward < link lip12-door1 >
+	
+}
+scrn lip12-door1
+{
+	img lip12-door1.dib
+	down < link lip12-door >
+	forward < link lip12-door2 >
+	
+}
+scrn lip12-door2
+{
+	img lip12-door2.dib
+	down < link lip12-door1 >
+	
+}
+scrn lip15-17
+{
+	img lip15-17.dib
+	forward < link lip17-18 >
+	left < link lip15-14 >
+	right < link lip15-14 >
+	
+}
+scrn lip17-18
+{
+	img lip17-18.dib
+	hotzone < rect 195 54 343 242 link lip18-19 >
+	hotzone < rect 25 12 133 341 link lip17-16 >
+	right < link lip15-14 >
+	left < link lip15-14 >
+	
+}
+scrn lip17-16
+{
+	img lip17-16.dib
+	forward < link lip16-doors >
+	left < link lip16-hall >
+	right < link lip16-hall >	
+	
+}
+scrn lip16-doors
+{	img lip16-doors.dib
+	left < link lip16-hall >
+	right < link lip16-hall >
+	down < link lip17-16 >
+	hotzone < rect 32 32 180 350 link lip16-doorsopen sound dooropening.wav >
+	
+}
+scrn lip16-doorsopen
+{
+	img lip16-doorsopen.dib
+	left < link lip16-hall sound doorclosing.wav >
+	right < link lip16-hall sound doorclosing.wav >
+	down < link lip16-doors sound doorclosing.wav >
+	forward < link liproom1-2 sound doorclosing.wav >
+	
+}
+scrn liproom1-2
+{
+	img liproom1-2.dib
+	hotzone < rect 0 57 105 200 link clock1 >
+	down < link lip16-doorsopen >
+	
+}
+
+# clock pics ------------------
+
+	scrn clock1
+	{
+		img clock1.dib
+
+		hotzone < rect 227 300 270 354 sound turn.wav link clock2 >
+		hotzone < rect 131 290 142 306 sound click2.wav >
+		down < link liproom1-2 >
+
+	}
+
+	scrn clock2
+	{
+		img clock2.dib
+
+		hotzone < rect 227 300 270 354 sound turn.wav link clock3 >
+		hotzone < rect 131 290 142 306 sound click2.wav >
+		down < link liproom1-2 >
+
+	}
+
+	scrn clock3
+	{
+		img clock3.dib
+
+		hotzone < rect 227 300 270 354 sound turn.wav link clock4 >
+		hotzone < rect 131 290 142 306 sound click2.wav >
+		down < link liproom1-2 >
+
+	}
+
+	scrn clock4
+	{
+		img clock4.dib
+
+		hotzone < rect 227 300 270 354 sound turn.wav link clock5 >
+		hotzone < rect 131 290 142 306 sound click2.wav >
+		down < link liproom1-2 >
+
+	}
+
+	scrn clock5
+	{
+		img clock5.dib
+
+		hotzone < rect 227 300 270 354 sound turn.wav link clock6 >
+		hotzone < rect 131 290 142 306 sound click2.wav >
+		down < link liproom1-2 >
+
+	}
+
+	scrn clock6
+	{
+		img clock6.dib
+
+		hotzone < rect 227 300 270 354 sound turn.wav link clock7 >
+		hotzone < rect 131 290 142 306 sound fitebell.wav puzzle ArrayGame >
+		down < link liproom1-2 >
+
+		music midifile6.mid
+	}
+
+	scrn clock7
+	{
+		img clock7.dib
+
+		hotzone < rect 227 300 270 354 sound turn.wav link clock8 >
+		hotzone < rect 131 290 142 306 sound click2.wav >
+		down < link liproom1-2 >
+
+	}
+
+	scrn clock8
+	{
+		img clock8.dib
+
+		hotzone < rect 227 300 270 354 sound turn.wav link clock9 >
+		hotzone < rect 131 290 142 306 sound click2.wav >
+		down < link liproom1-2 >
+
+	}
+
+	scrn clock9
+	{
+		img clock9.dib
+
+		hotzone < rect 227 300 270 354 sound turn.wav link clock1 >
+		hotzone < rect 131 290 142 306 sound click2.wav >
+		down < link liproom1-2 >
+
+	}
+
+# end clock pics ------------------
+
+## end of Lippit pix
+
+
+################################
+## Inside of Bliss
+################################
+
+scrn blissDoor
+{
+     img blissDoor.dib
+     
+     left < link blissLeaving >
+     right < link blissLeaving >
+     hotzone < rect 173 37 298 267 link blissDoorOpen  sound dooropening.wav >
+     hotzone < rect 75 61 118 118 link fire >
+}
+scrn fire
+{
+	img fire3.dib
+	down < link blissDoor >
+	hotzone < rect 210 176 270 256 link fire1 >
+	
+}
+scrn fire1
+{
+	img fire1.dib
+	# hotzone < rect 205 245 272 314 link fire >
+	hotzone < rect 233 197 248 217 sound firebell.wav >
+	down < link blissDoor >
+		
+}
+scrn blissDoorOpen
+{
+     img blissDoorOpen.dib
+     
+
+     left < link bl1-bl2 sound doorclosing.wav >
+	 right < link q7-q6 sound doorclosing.wav >
+     forward < link blissEntrance  sound doorclosing.wav >
+     down < link blissDoor sound doorclosing.wav >
+	 
+}
+
+scrn blissEntrance
+{
+     img blissEntrance.dib
+     
+
+     left < link blissStairsExitClosed >
+     right < link blissStairsExitClosed >
+     hotzone < rect 344 200 465 375 link bliss1-2 >   
+     hotzone < rect 67 2 260 178 link bliss8-9 >
+
+	 music bliss.mid
+}
+
+scrn bliss8-9
+{
+     img bliss8-9.dib
+     
+
+     left < link bliss9-8 >
+     right < link bliss9-8 >
+     forward < link bliss9-10 >
+}
+
+scrn blissStairsExitClosed 
+{
+	img blissStairsExitClosed.dib
+	left < link blissEntrance >
+	right < link blissEntrance >
+	forward < link blissStairsExitOpen sound dooropening.wav >
+}
+
+scrn blissStairsExitOpen 
+{
+	img blissStairsExitOpen.dib
+	left < link blissEntrance  sound doorclosing.wav >
+	right < link blissEntrance  sound doorclosing.wav >
+	forward < link blissLeaving  sound doorclosing.wav >
+	
+}
+
+scrn bliss9a
+{
+     img bliss9a.dib
+     
+
+     left < link bliss9-8 >
+     right < link bliss9-8 >
+     forward < link bliss9 >
+}
+
+scrn bliss9-8
+{
+     img bliss9-8.dib
+     
+
+     left < link bliss8-9 >
+     right < link bliss8-9 >
+     forward < link blissStairsExitClosed >
+}
+
+scrn bliss9
+{
+     img bliss9.dib
+     
+     right < link bliss9-8 >
+     hotzone < rect 336 100 448 332 
+		   link bliss9-10 >
+}
+scrn bliss9-10
+{
+     img bliss9-10.dib
+     
+     right < link bliss9-8 >
+     forward < link bliss10-11 >
+}
+scrn bliss10-11
+{
+	img bliss10-11.dib
+	left < link bliss11-10 >
+	right < link bliss11-10 >
+	forward < link blissSecondClosed >
+	
+}
+scrn bliss11-10
+{
+	img bliss11-10.dib
+	left < link bliss10-11 >
+	right < link bliss10-11 >
+	forward < link bliss10-9 >
+	
+}
+scrn bliss10-9
+{
+	img bliss10-9.dib
+	left < link bliss10-11 >
+	forward < link bliss9-8 >
+	
+}
+scrn blissSecondClosed 
+{
+	img blissSecondClosed.dib
+	left < link bliss11-10 >
+	right < link bliss11-10 >
+	forward < sound lockedDoor.wav >
+	
+}
+scrn blissSecondOpen
+{
+	img blissSecondOpen.dib
+	left < link bliss11-10 >
+	right < link bliss11-10 >
+	forward < link blissClassDoor >
+	
+}
+scrn blissClassDoor 
+{
+	img blissClassDoor.dib
+	#left < link blissSecondLeavingClosed >
+	right < link bliss2ndHallway3 >
+	forward < puzzle PresPuzzle >
+
+	music bliss.mid
+	
+}
+scrn blissClass 
+{
+	img blissClass.dib
+	left < link blissClassLeaving >
+	right < link blissClassLeaving >
+	forward < link blissClassWallFar >
+	
+}
+scrn blissClassLeaving 
+{
+	img blissClassLeaving.dib
+	left < link blissClass >
+	right < link blissClass >
+	forward < link blissSecondLeavingClosed >
+	
+}
+scrn blissClassWallFar 
+{
+	img blissClassWallFar.dib
+	left < link blissClassLeaving >
+	right < link blissClassLeaving >
+	forward < puzzle P >
+	
+}
+scrn blissClassWall
+{
+	img blissClassWall.dib
+	left < link blissClassLeaving >
+	right < link blissClassLeaving >
+	
+}
+scrn blissSecondLeavingClosed 
+{
+	img blissSecondLeavingClosed.dib
+	left < link bliss2ndHallway3 >
+	right < link blissClassDoor >
+	# forward < link blissSecondLeavingOpen >
+	
+}
+scrn blissSecondLeavingOpen 
+{
+	img blissSecondLeavingOpen.dib
+	left < link blissClassDoor >
+	right < link blissClassDoor >
+	forward < link bliss11-10 >
+	
+}
+scrn bliss1-2
+{
+     img bliss1-2.dib
+     
+     left < link bliss2-exit >
+     right < link bliss2-exit >
+     forward < link bliss2 >
+}
+scrn bliss2-exit
+{
+     img bliss2-exit.dib
+     
+     left < link bliss1-2 >
+     right < link bliss1-2 >
+     forward < link blissStairsExitClosed >
+}
+scrn bliss2
+{
+     img bliss2.dib
+     
+     left < link bliss2-1 >
+	 hotzone < rect 475 210 500 375 link bliss2-1 cursor 3 >
+     hotzone < rect 419 35 492 368 link bliss3-4 >
+}
+scrn bliss2-1
+{
+     img bliss2-1.dib
+     
+     left < link bliss2-3 >
+     right < link bliss2 >
+     forward < link bliss2-exit >
+}
+scrn bliss2-3
+{
+     img bliss2-3.dib
+     
+	 right < link bliss3-2  >
+     left < link blissBathClosed  >
+     forward < link bliss3-4 >
+
+}
+scrn bliss3-4
+{
+     img bliss3-4.dib
+     
+     right < link bliss3-2 >
+     hotzone < rect 176 50 331 263 link bliss4-5 >
+	 hotzone < rect 0 225 26 375 link blissBathClosed cursor 2 >
+     hotzone < rect 0 0 95 344 link blissElevClosed >
+}
+scrn bliss3-2
+{
+     img bliss3-2.dib
+     
+     hotzone < rect 0 0 67 374 link bliss2-1 >
+     right < link blissBathClosed >
+}
+scrn bliss4-5
+{
+     img bliss4-5.dib
+     
+     left < link blissElevClosed >
+     right < link bliss4-3 >
+     forward < link bliss5-6 >
+}
+scrn bliss4-3
+{
+     img bliss4-3.dib
+     
+     left < link bliss4-5 >
+     right < link blissElevClosed >
+     forward < link bliss3-2 >
+    ## hotzone < link blissBathClosed >
+}
+scrn bliss5-6
+{
+     img bliss5-6.dib
+     
+     left < link bliss5-4 >
+     forward < link bliss6-7 >
+}
+scrn bliss5-4
+{
+     img bliss5-4.dib
+     
+     right < link bliss5-6 >
+     forward < link bliss4-3 >
+}
+scrn bliss6-5
+{
+     img bliss6-5.dib
+     
+     left < link bliss6-7 >
+     right < link bliss6-7 >
+     forward < link bliss5-4 >
+}
+scrn bliss6-7
+{
+     img bliss6-7.dib
+     
+     hotzone < rect 211 49 307 267 link blissDeadEnd >
+     hotzone < rect 32 237 185 338 link blissBinClosed >
+	 left < link bliss6-5 >
+     right < link bliss6-5 >
+}
+scrn blissDeadEnd
+{
+     img blissDeadEnd.dib
+     
+	 forward < sound lockedDoor.wav >
+     down < link bliss6-7 >
+}
+scrn blissBathClosed
+{
+     img blissBathClosed.dib
+     
+     left < link bliss3-2 >
+     right < link bliss3-4 >
+     forward < link blissBathOpen sound dooropening.wav >
+}
+scrn blissBathOpen
+{
+     img blissBathOpen.dib
+     
+     left < link bliss3-2 sound doorclosing.wav >
+     right < link bliss3-4 sound doorclosing.wav >
+     forward < link blissBath1 >
+     down < link blissBathClosed sound doorclosing.wav >
+}
+scrn blissBath1
+{
+     img blissBath1.dib
+
+	 hotzone < rect 398 184 483 243 link blissSinkOff >     
+     hotzone < rect 30 24 192 360 link blissBathStall >
+	 left < link blissBathExit >
+	 right < link blissBathExit >
+     
+}
+scrn blissBathExit
+{
+     img blissBathExit.dib
+     
+
+     left < link blissBath1 >
+     right < link blissBath1 >
+     forward < link bliss3-2 sound doorclosing.wav >
+}
+scrn blissBathStall
+{
+     img blissBathStall.dib
+     
+
+     down < link blissBath1 >
+     hotzone < rect 204 132 243 165 sound flush.wav >
+}
+scrn blissSinkOff
+{
+     img blissSinkOff.dib
+     
+
+     hotzone < rect 257 194 294 234 link blissSinkOn sound wrunning.wav >
+     down < link blissBath1 >
+}
+scrn blissSinkOn
+{
+     img blissSinkOn2.dib
+     
+
+     hotzone < rect 257 194 294 234 link blissSinkOff >
+     down < link blissBath1 >
+}
+
+
+# Bliss Elevator Screens
+
+scrn blissElevClosed
+{
+     img blissElevClosed.dib
+
+     left < link bliss4-3 >
+     right < link bliss4-5 >
+     hotzone < rect 96 180 109 195 set blissElevClosed=blissElevClosed2 sound elevatorRun2.wav >
+}
+
+scrn blissElevClosed2
+{
+     img blissElevClosed.dib
+
+     left < link bliss4-3 >
+     right < link bliss4-5 >
+     hotzone < rect 172 156 198 217 link blissElevOpen sound elevatorOpen.wav >
+}
+
+scrn blissElevOpen
+{
+     img blissElevOpen.dib
+
+     left < link bliss4-3 sound elevatorOpen.wav >
+     right < link bliss4-5 sound elevatorOpen.wav >
+     hotzone < rect 192 112 375 286 link blissElevInside >
+     # hotzone < rect 96 180 109 195 link blissElevClosed sound elevatorOpen.wav >
+}
+scrn blissElevInside
+{
+     img blissElevInside.dib
+     
+     right < link blissElevExit >
+     hotzone < rect 159 122 210 220 link blissElevButton >
+}
+
+scrn blissElevInside2ndFloor
+{
+     img blissElevInside.dib
+     
+
+     right < link blissElev2ndFloorOpen >
+     hotzone < rect 159 122 210 220 link blissElevButton2nd >
+}
+
+scrn blissElev2ndFloorOpen
+{
+	img bliss2ndFloorInsideElev.dib
+	
+	left < link blissElevInside2ndFloor >
+	forward < link bliss2ndHallway1 >
+	
+
+}
+
+scrn blissElevExit
+{
+     img blissElevExit.dib
+     
+
+     left < link blissElevInside >
+     forward < link bliss4-3 sound elevatorOpen.wav >
+}
+scrn blissElevButton
+{
+     img blissElevButton.dib
+     
+	 hotzone < rect 232 152 256 175 link elev2ndFloor sound elevatorRun.wav >
+	 # hotzone < rect 232 193 256 217 link elevBaseFloor >
+     down < link blissElevInside >
+ }
+scrn blissElevButton2nd
+{
+     img blissElevButton.dib
+     
+	 # hotzone < rect 232 152 256 175 link elev2ndFloor >
+	 hotzone < rect 232 193 256 217 link elevBaseFloor sound elevatorRun.wav >
+     down < link blissElevInside2ndFloor >
+ }
+
+scrn elev2ndFloor
+{
+	img blissInElevDoorClosed.dib
+	left < link blissElevInside2ndFloor >
+	hotzone < rect 361 271 401 357 link blissElev2ndFloorOpen sound elevatorOpen.wav >
+	
+
+}
+
+scrn elevBaseFloor
+{
+	img blissInElevDoorClosed.dib
+	left < link blissElevInside >
+	hotzone < rect 361 271 401 357 link blissElevExit sound elevatorOpen.wav >
+	
+}
+
+scrn bliss2ndElevClosed
+{
+	img bliss2ndElevClosed.dib
+	left < link bliss2ndHallway1 >
+	hotzone < rect 105 180 128 219 link bliss2ndElevOpen sound elevatorOpen.wav >
+
+}
+
+scrn bliss2ndElevOpen
+{
+	img bliss2ndElevOpen.dib
+	left < link bliss2ndHallway1 >
+	# hotzone < rect 93 185 116 226 link bliss2ndElevClosed sound elevatorOpen.wav >
+	hotzone < rect 146 54 309 373 link blissElevInside2ndFloor >
+	
+
+}
+	
+
+
+scrn bliss2ndHallway1
+{
+	img bliss2ndHallway1.dib
+	right < link bliss2ndElevOpen >
+	hotzone < rect 253 103 425 350 link bliss2ndHallway2 >
+	
+
+}
+
+scrn bliss2ndHallway2
+{
+	img	bliss2ndHallway2.dib
+	left < link bliss2ndHallway3 >
+	right < link bliss2ndHallway3 >
+	hotzone < rect 243 82 366 372 link blissClassDoor >
+	
+}
+
+scrn bliss2ndHallway3
+{
+	img bliss2ndHallway3.dib
+	left < link bliss2ndHallway2 >
+	right < link bliss2ndHallway2 >
+	forward < link bliss2ndElevOpen >
+	
+}
+
+scrn blissBinClosed
+{
+     img blissBinClosed.dib
+     
+
+     forward < link blissBinOpen >
+     down < link bliss6-7 >
+}
+scrn blissBinOpen
+{
+     img blissBinOpen.dib
+     
+
+      forward < link blissBinInside >
+     down < link bliss6-7 >
+}
+scrn blissBinInside
+{
+     img blissBinInside.dib
+     
+
+     down < link blissBinOpen >
+}
+scrn blissExitClosed
+{
+     img blissExitClosed.dib
+     
+
+     left < link blissEntrance >
+     right < link blissEntrance >
+     forward < link blissExitOpen sound dooropening.wav >
+}
+scrn blissExitOpen
+{
+     img blissExitOpen.dib
+     
+
+     left < link blissEntrance >
+     right < link blissEntrance >
+     forward < link blissLeaving sound doorclosing.wav >
+}
+scrn blissLeaving
+{
+     img  blissleaving.dib
+ 
+     right < link blissDoor >
+	 left < link blissDoor >
+     hotzone < rect 345 141 478 225 link bl1-bl2 >
+     hotzone < rect 86 77 300 170 link q7-q6 >
+
+	 music outside.mid
+}
+
+## end of inside bliss
+
+
+##
+## Path from bliss to the library
+##
+scrn bl1-bl2
+{
+     img bl1-bl2.dib  
+
+     # left  < link q7-q6 >  
+     right  < link blissDoor >  
+     forward  < link bl2-bl3 >  
+
+}
+
+
+scrn bl1-q6
+{
+     img bl1-q6.dib  
+
+     left  < link bl1-bliss >  
+     right  < link bl1-bl2 >  
+     forward  < link q3-q2 >  
+
+}
+
+scrn bl2-bl1
+{
+     img bl2-bl1.dib  
+
+     left  < link bl2-bl3 >  
+     right  < link bl2-bl3 >  
+     forward  < link blissDoor >  
+
+}
+
+scrn bl2-bl3
+{
+     img bl2-bl3.dib  
+
+     left  < link bl2-bl1 >  
+     right  < link bl2-bl1 >  
+     forward  < link bl3-bl4 >  
+
+}
+
+scrn bl3-bl2
+{
+     img bl3-bl2.dib  
+
+     left  < link bl3-lip >  
+     right  < link bl3-q5 >  
+     forward  < link bl2-bl1 >  
+
+}
+
+scrn bl3-bl4
+{
+     img bl3-bl4.dib  
+
+     left  < link bl3-q5 >  
+     right  < link bl3-lip >  
+     forward < link bl4-bl5 >	
+
+}
+
+scrn bl3-q5
+{
+	img bl3-q5.dib
+	left < link bl3-bl2 >
+	right < link bl3-bl4 >
+	forward < link q5-q3 >
+
+}
+scrn bl3-lip
+{
+     img bl3-lip.dib  
+
+     left  < link bl3-bl4 >  
+     right  < link bl3-bl2 > 
+     forward < link PresPuzzle_result > 
+
+}
+scrn PresPuzzle_result
+{	img lipdoor.dib
+	
+	hotzone < rect 180 0 395 374 sound lockedDoor.wav >
+	left < link lipdoor-bl3 >
+	right < link lipdoor-bl3 >
+	
+}
+scrn lipdooropen
+{	img lipdooropen.dib
+
+	hotzone < rect 180 0 395 374 link lip1-10 sound doorclosing.wav >
+	down < link PresPuzzle_result sound doorclosing.wav >
+	left < link lipdoor-bl3 >
+	right < link lipdoor-bl3 >
+
+	
+}
+scrn PresPuzzle_solved
+{	img lipdoor.dib
+	
+	hotzone < rect 180 0 395 374 link lipdooropen sound dooropening.wav >
+	left < link lipdoor-bl3 >
+	right < link lipdoor-bl3 >
+	
+}
+
+scrn bl3-q5
+{
+     img bl3-q4.dib  
+
+     left  < link bl3-bl2 >  
+     right  < link bl3-bl4 >  
+     forward  < link q5-q3 >  
+
+}
+
+scrn bl4-bl3
+{
+     img bl4-bl3.dib  
+     
+     left < link bl4-bl5 >
+     right < link bl4-bl5 >
+     forward  < link bl3-bl2 >  
+
+}
+
+scrn bl4-bl5
+{
+     img bl4-bl5.dib  
+     
+     left < link bl4-bl3 >
+     right < link bl4-bl3 >
+     forward  < link bl5-bl6 >  
+
+}
+
+scrn bl5-bl4
+{
+     img bl5-bl4.dib  
+     
+     left < link bl5-bl6 >
+     right < link bl4-ul1 >
+     forward  < link bl4-bl3 >  
+
+}
+
+scrn bl5-bl6
+{
+     img bl5-bl6.dib  
+     
+     left < link bl4-ul1 >
+     right < link bl5-bl4 >
+     forward  < link bl6-lib >  
+
+}
+
+scrn bl4-ul1
+{
+	img  bl4-ul1.dib
+	
+	left < link bl5-bl4 >
+	right < link bl5-bl6 >
+	forward < link ul1-ul2 >	 
+
+}
+scrn bl6-bl5
+{
+     img bl6-bl5.dib  
+     
+     left < link bl6-lib1 >
+     right < link bl6-ul1 >
+     forward  < link bl5-bl4 >  
+
+}
+
+scrn bl6-lib
+{	img bl6-lib.dib
+	right < link bl6-lib1 >
+	left < link bl6-ul1 >
+}
+scrn bl6-lib1
+{
+     img bl6-lib1.dib  
+     
+    # left < link bl6-ul1 >
+     right < link bl6-bl5 >
+     forward  < link lib1-doors >  
+
+}
+
+scrn bl6-ul1
+{
+     img bl6-ul1.dib  
+     
+     left < link bl6-bl5 >
+     right < link bl6-lib1 >
+     forward  < link ul1-ul2 >  
+
+}
+
+scrn ul1-ul2
+{
+	img ul1-ul2.dib
+	left < link ul1-bl4 >
+	right < link ul1-bl6 >
+	forward < link ul2-ul3 > 
+
+}
+##end Bliss 
+
+####################################
+## These are the quad pictures
+####################################
+
+scrn q1-q2
+{
+     img q1-q2.dib  
+
+     left  < link q1-ru3 >  
+     right  < link q1-ru3 >  
+     forward  < link q2-q3 >  
+
+}
+
+scrn q1-ru3
+{
+     img q1-ru3.dib  
+     left  < link q1-q2 >  
+     right  < link q1-q2 >  
+     forward  < link ru3-ru4 >  
+     
+}
+
+
+scrn q2-q1
+{
+     img q2-q1.dib  
+
+     left  < link q2-q3 >  
+     right  < link q2-q3 >  
+     forward  < link q1-ru3 >  
+	
+}
+
+scrn q2-q3
+{
+     img q2-q3.dib  
+
+     left  < link q2-q1 >  
+     right  < link q2-q1 >  
+     forward  < link q3-q6 >  
+	
+}
+
+scrn q3-q2
+{
+     img q3-q2.dib  
+
+     left  < link q3-q4 >  
+     right  < link q3-q5 >  
+     forward  < link q2-q1 >  
+	
+}
+
+scrn q3-q4
+{
+     img q3-q4.dib  
+
+     left  < link q3-q6 >  
+     right  < link q3-q2 >  
+     hotzone  < rect 111 65 397 240 link q4-ru1 >  
+     hotzone < rect 105 295 424 374 link brickClue >	
+}
+scrn q3-q5
+{
+     img q3-q5.dib  
+
+     left  < link q3-q2 >  
+     right  < link q3-q6 >  
+     hotzone  < rect 145 135 350 235 link q5-bl3 >  
+	
+}
+scrn brickClue
+{
+	img brickClue.dib
+	down < link q3-q4 >
+	
+}
+scrn brickClue2
+{
+	img brickClue.dib
+	down < link q4-q3 >
+	
+}
+
+scrn q3-q6
+{
+     img q3-q6.dib  
+
+     left  < link q3-q5 >  
+     right  < link q3-q4 >  
+     forward  < link q6-q7 >  
+	
+}
+scrn q6-q7
+{	img q6-q7.dib
+	left < link q6-q3 >
+	right < link q6-q3 >
+	forward < link q7-bliss >
+	
+}
+scrn q6-q3
+{	img q6-q3.dib
+	forward < link q3-q2 >
+	left < link q6-q7 >
+	right < link q6-q7 >
+	
+}
+scrn q7-bliss
+{	img q7-bliss.dib
+	forward < link blissDoor >
+	left < link q7-q6 >
+	right < link q7-q6 >
+	
+}
+scrn q7-q6
+{	img q7-q6.dib
+	forward < link q6-q3 >
+	right < link q7-bliss >
+	left < link q7-bliss >
+	
+}
+
+scrn q3-q5
+{
+	img q3-q5.dib
+	
+	left < link q3-q2 >
+	right < link q3-q6 >
+
+}
+scrn q5-bl3
+{
+     img q5-bl3.dib  
+
+     left  < link q5-q3 >  
+     right  < link q5-q3 >  
+     forward  < link bl3-lip >  
+
+}
+
+scrn q5-q3
+{
+     img q5-q3.dib  
+
+     left  < link q5-bl3 >  
+     right  < link q5-bl3 >  
+     forward  < link q3-q4 >  
+
+}
+scrn q4-q3
+{
+     img q4-q3.dib  
+
+     left  < link q4-ru1 >  
+     right  < link q4-ru1 >  
+     hotzone  < rect 111 65 397 240 link q3-q5 >  
+     hotzone < rect 105 295 424 374 link brickClue2 >
+}
+
+scrn ArrayGame_result
+{	img randoor.dib
+	hotzone < rect 226 35 343 289 sound lockedDoor.wav >
+	right < link randoor-ru1 >
+	left < link randoor-ru1 >
+	
+}
+
+scrn ArrayGame_solved
+{	img randoor.dib
+	hotzone < rect 226 35 343 289 link randooropen sound dooropening.wav >
+	right < link randoor-ru1 >
+	left < link randoor-ru1 >
+	
+}
+
+scrn randooropen
+{	img randooropen.dib
+	forward < link ranger1-2 sound doorclosing.wav >
+	right < link randoor-ru1 >
+	left < link randoor-ru1 >
+	down < link ArrayGame_result sound doorclosing.wav >
+
+}
+scrn randoor-ru1
+{	img randoor-ru1.dib
+	forward < link ru1-q4 >
+	left < link ArrayGame_result >
+	right < link ArrayGame_result >
+
+	music outside.mid
+}
+scrn q4-ru1
+{
+     img q4-ru1.dib  
+
+     left  < link q4-q3 >  
+     right  < link q4-q3 >  
+     forward  < link ru0-ran >  
+
+}
+
+scrn bl1-bliss
+{
+     img bl1-bliss.dib
+
+     left  < link bl1-bl2 >  
+     right  < link q7-q6 >  
+     forward  < link blissDoor >  
+
+}
+
+scrn q6-bl1
+{
+     img q6-bl1.dib  
+
+     left  < link q3-q2 >  
+     right  < link q3-q2 >  
+     forward  < link bl1-bliss >  
+
+}
+
+
+###############################
+## Path from Ranger to the Union
+###############################
+
+scrn ru1-q4
+{
+     img ru1-q4.dib  
+
+     left  < link ru1-ru2 >  
+     right  < link ru0-ran >  
+     forward  < link q4-q3 >  
+
+}
+
+scrn ru0-ran
+{
+	img ru0-ran.dib
+	right < link ru1-ru2 >
+	left < link ru1-q4 >
+	forward < link ran >
+}
+
+scrn ru1-ran
+{
+     img ru1-ran.dib  
+
+     left  < link ru1-q4 >  
+     right  < link ru1-ru2 >  
+     forward < link ru0-ran >
+
+}
+
+scrn ran
+{
+     img ran.dib
+     forward < link ArrayGame_result >
+     left  < link ru1-q4 >  
+     right  < link ru1-q4 >  
+
+}
+
+scrn ru1-ru2
+{
+     img ru1-ru2.dib  
+
+     left  < link ru1-ran >  
+     right  < link ru1-q4 >  
+     forward  < link ru2-ru3 >  
+
+}
+
+scrn ru2-ru3
+{
+	img ru2-ru3.dib
+	
+	left < link ru2-ru1 >
+	forward < link ru3-ru4 >
+
+
+}
+
+
+
+scrn ru2-ru3
+{
+     img ru2-ru3.dib  
+
+     left  < link ru2-ru1 >  
+     right  < link ru2-ru1 >  
+     forward  < link ru3-ru4 >  
+
+}
+
+scrn ru3-q1ru2
+{
+     img ru3-q1ru2.dib  
+
+     left  < link ru3-ru4 >  
+     right  < link ru3-ru4 >  
+     forward  < link ru3-q1 >   
+
+}
+
+scrn ru3-q1
+{
+     img ru3-q1.dib  
+
+     left  < link ru3-ru4a >  
+     right  < link ru3-ru2 >  
+     forward  < link q1-q2 >   
+
+}
+
+scrn ru3-ru4a
+{
+	img ru3-ru4a.dib
+	forward < link ru3-ru4 >
+	right < link ru3-q1 >
+	left < link ru3-ru2 >
+	
+
+}
+scrn ru3-ru2
+{
+     img ru3-ru2.dib  
+
+     left  < link ru3-q1 >  
+     right  < link ru3-ru4 >  
+     forward  < link ru2-ru1 >   
+
+}
+
+scrn ru2-ru1
+{
+	img ru2-ru1.dib
+	left < link ru2-ru3 >
+	right < link ru2-ru3 >
+	forward < link ru1-ran >
+
+}
+scrn ru3-ru4
+{
+     img ru3-ru4.dib  
+
+     left  < link ru3-ru2 >  
+     right  < link ru3-q1 >  
+     forward  < link ru4-ru5 >   
+
+}
+
+scrn ru4-ru3
+{
+     img ru4-ru3.dib  
+
+     left  < link ru4-stat >  
+     right  < link ru4-ru5 >  
+     forward  < link ru3-q1ru2 >   
+
+}
+
+scrn ru4-ru5
+{
+     img ru4-ru5.dib  
+
+     left  < link ru4-ru3 >  
+     right  < link ru4-stat >  
+     forward  < link ru5-ru6 >   
+
+}
+scrn ru4-stat
+{
+	img ru4-stat.dib
+	left < link ru4-ru5 >
+	forward < link ul3-ul2 >
+	right < link ru4-ru3 >
+
+}	
+scrn ru5-ru4
+{
+     img ru5-ru4.dib  
+
+     left  < link ul3-ul2 >  
+     right  < link ru5-ru6 >  
+     forward  < link ru4-ru3 >   
+
+}
+
+scrn ru5-ru6
+{
+     img ru5-ru6.dib  
+
+     left  < link ru6-ru5 >  
+     right  < link ru5-ru4 >  
+     forward  < link ru6-ru7 >   
+
+}
+
+scrn ru6-ru5
+{
+     img ru6-ru5.dib  
+
+     left  < link ru6-ru7 >  
+     right  < link ru6-ru7 >  
+     forward  < link ru5-ru4 >   
+
+}
+
+scrn ru6-ru7
+{
+     img ru6-ru7.dib  
+
+     left  < link ru6-ru5 >  
+     right  < link ru6-ru5 >  
+     forward  < link ru7-union >   
+
+}
+
+scrn ru7-ru6
+{
+     img ru7-ru6.dib  
+
+     left  < link BoxGame_result >  
+     right  < link BoxGame_result >  
+     forward  < link ru6-ru5 >   
+
+	 music outside.mid     
+}
+
+scrn ru7-union
+{
+     img ru7-union.dib  
+
+     left  < link ru7-ru6 >  
+     right  < link ru7-ru6 >  
+     forward  < link BoxGame_result >   
+     
+}
+
+scrn BoxGame_result
+{
+	img ru7-union1.dib
+	
+	hotzone < rect 252 15 377 364 sound lockedDoor.wav >
+	left < link ru7-ru6 >
+	right < link ru7-ru6 >
+	
+	
+}
+
+scrn BoxGame_solved
+{
+	img ru7-union1.dib
+	left < link ru7-ru6 >
+	right < link ru7-ru6 >
+	hotzone < rect 252 15 377 364 link ru7-union1open  sound dooropening.wav >
+	
+}
+
+scrn ru7-union1open
+{
+	img ru7-union1open.dib
+	forward < link union1-union2 >
+	left < link ru7-ru6 >
+	right < link ru7-ru6 >
+	down < link BoxGame_result sound doorclosing.wav >
+	
+}
+
+#################################################
+## These are from the Union to the library
+#################################################
+
+scrn ul3-ru5
+{
+     img ul3-ru5.dib
+
+     left < link ru4-ru3 >
+     right < link ul3-ul2 >
+     forward < link ru5-ru6 >
+
+}
+
+scrn ul3-ul2
+{
+     img ul3-ul2.dib
+
+     hotzone < rect 114 175 138 275 link statue >
+     right < link ul3-ru5 >
+     hotzone < rect 212 160 380 275  link ul2-ul1 >
+
+}
+
+scrn statue
+{
+	img statue.dib
+	down < link ul3-ul2 >
+
+}
+scrn ul2-ul3
+{
+     img ul2-ul3.dib
+
+     left < link ul2-ul1 >
+     right < link ul2-ul1 >
+     forward < link ul3-ru5 >
+
+}
+
+scrn ul2-ul1
+{
+     img ul2-ul1.dib
+
+     left < link ul2-ul3 >
+     right < link ul2-ul3 >
+     forward < link ul1-bl6 >
+
+}
+
+scrn ul1-bl6
+{
+     img ul1-bl6.dib
+
+     left < link ul1-ul2 >
+     right < link ul1-bl4 >
+     forward < link bl6-lib1 >
+
+}
+
+scrn ul1-bl4
+{
+	img ul1-bl4.dib
+	left < link ul1-bl6 >
+	right < link ul1-ul2 >
+	forward < link bl5-bl4 >
+
+}
+
+##
+## These are from the library
+##
+
+scrn lib1-doors
+{
+     img lib1-doors.dib
+
+     left < link lib1-lib2 >
+     right < link lib1-bl6 >
+     hotzone < rect 262 180 355 284 link libDoorsClosed >
+     hotzone < rect 374 238 401 290 link callbox >	
+     
+}
+
+scrn libDoorsClosed
+{
+     img libDoorsClosed.dib
+
+     hotzone < rect 192 45 305 341 sound lockedDoor.wav >     
+	 left < link lib1-bl6 >
+     right < link lib1-bl6 >
+	 down < link lib1-doors >
+     
+     
+}
+
+scrn libDoorsOpen
+{
+     img libDoorsOpen.dib
+
+     left < link lib1-bl6 sound doorclosing.wav >
+     right < link lib1-bl6 sound doorclosing.wav >
+	 down < link lib1-doors sound doorclosing.wav >
+     hotzone < rect 192 45 305 341 link Towers_result sound doorclosing.wav >     
+     
+}
+
+
+scrn callbox
+{	img callbox.dib
+	hotzone < rect 178 119 215 155 link callbox2 sound pad1.wav > # 1
+	hotzone < rect 224 119 259 155 link callbox sound pad2.wav > #2
+	hotzone < rect 270 119 306 155 link callbox sound pad3.wav > #3
+	hotzone < rect 178 165 215 202 link callbox sound pad4.wav > #4
+	hotzone < rect 224 165 259 202 link callbox sound pad5.wav > # 5
+	hotzone < rect 270 165 306 202 link callbox sound pad6.wav > #6
+	hotzone < rect 178 212 215 248 link callbox sound pad7.wav > # 7
+	hotzone < rect 224 212 259 248 link callbox sound pad8.wav > # 8
+	hotzone < rect 270 212 306 248 link callbox sound pad9.wav > # 9
+	down < link lib1-doors >
+	
+}
+
+scrn callbox2
+{	img callbox.dib
+	hotzone < rect 178 119 215 155 link callbox sound pad1.wav > # 1
+	hotzone < rect 224 119 259 155 link callbox sound pad2.wav > #2
+	hotzone < rect 270 119 306 155 link callbox sound pad3.wav > #3
+	hotzone < rect 178 165 215 202 link callbox sound pad4.wav > #4
+	hotzone < rect 224 165 259 202 link callbox sound pad5.wav > # 5
+	hotzone < rect 270 165 306 202 link callbox sound pad6.wav > #6
+	hotzone < rect 178 212 215 248 link callbox sound pad7.wav > # 7
+	hotzone < rect 224 212 259 248 link callbox sound pad8.wav > # 8
+	hotzone < rect 270 212 306 248 link callbox3 sound pad9.wav > # 9
+	down < link lib1-doors >
+	
+}
+scrn callbox3
+{	img callbox.dib
+	hotzone < rect 178 119 215 155 link callbox sound pad1.wav > # 1
+	hotzone < rect 224 119 259 155 link callbox sound pad2.wav > #2
+	hotzone < rect 270 119 306 155 link callbox sound pad3.wav > #3
+	hotzone < rect 178 165 215 202 link callbox sound pad4.wav > #4
+	hotzone < rect 224 165 259 202 link callbox sound pad5.wav > # 5
+	hotzone < rect 270 165 306 202 link callbox sound pad6.wav > #6
+	hotzone < rect 178 212 215 248 link callbox sound pad7.wav > # 7
+	hotzone < rect 224 212 259 248 link callbox sound pad8.wav > # 8
+	hotzone < rect 270 212 306 248 link callbox4 sound pad9.wav > # 9
+	down < link lib1-doors >
+	
+}
+scrn callbox4
+{	img callbox.dib
+	hotzone < rect 178 119 215 155 link callbox sound pad1.wav > # 1
+	hotzone < rect 224 119 259 155 link callbox sound pad2.wav > #2
+	hotzone < rect 270 119 306 155 link callbox sound pad3.wav > #3
+	hotzone < rect 178 165 215 202 link callbox sound padWin.wav set libDoorsClosed=libDoorsUnlocked > #4
+	hotzone < rect 224 165 259 202 link callbox sound pad4.wav > # 5
+	hotzone < rect 270 165 306 202 link callbox sound pad5.wav > #6
+	hotzone < rect 178 212 215 248 link callbox sound pad6.wav > # 7
+	hotzone < rect 224 212 259 248 link callbox sound pad7.wav > # 8
+	hotzone < rect 270 212 306 248 link callbox sound pad8.wav > # 9
+	down < link lib1-doors >
+	
+}
+scrn libDoorsUnlocked
+{	img libdoorsclosed.dib
+	
+     left < link lib1-bl6 >
+     right < link lib1-bl6 >
+     hotzone < rect 190 44 308 337 link libDoorsOpen sound dooropening.wav >     
+     
+}
+
+scrn lib1-up
+{
+	img lib1-up.dib
+	down < link lib1-doors >
+	
+}
+scrn lib1-bl6
+{
+     img lib1-bl6.dib
+
+     left < link lib1-doors >
+     right < link lib1-lib2 >
+     forward < link bl6-ul1 >
+
+}
+
+scrn lib1-lib2
+{
+     img lib1-lib2.dib
+
+     left < link lib1-bl6 >
+     right < link lib1-doors >
+     forward < link lib2-libstone >
+
+}
+
+scrn libstone-lib2
+{
+     img libstone-lib2.dib
+
+     left < link lib2-libstone >
+     right < link lib2-libstone >
+     forward < link lib1-doors >
+    # hotzone < rect 457 111 486 214 link lib2-libstone >
+    # hotzone < rect 60 117 160 209 
+	#	  link lib1-doors >
+    # hotzone < rect 202 215 295 282 link libbench >
+    # hotzone < rect 344 100 414 195 link lib1-bl6 >
+     
+}
+
+scrn libbench
+{
+	img libbench.dib
+	
+	left < link lib2-libstone >
+	right < link lib2-libstone >
+	forward < link libbench2 >
+	down < link libstone-lib2 >
+     
+}
+
+scrn libbench2
+{
+	img libbench2.dib
+	down < link libbench >
+
+      
+}
+
+
+scrn lib2-libstone
+{
+     img lib2-libstone.dib
+
+     right < link libstone-lib2 >
+     left < link libstone-lib2 >
+     hotzone < rect 89 202 189 268 link libstone-lookout >
+     hotzone < rect 302 202 387 268 link libstone-lookout >
+
+     hotzone < rect 200 175 293 206 link libstone >
+     
+}
+
+scrn libstone-lookout
+{
+	img libstone-lookout.dib
+
+	left < link backstone >
+	right < link backstone >
+	down < link lib2-libstone >
+
+}
+
+scrn backstone
+{
+	img backstone.dib
+	hotzone < rect 197 215 284 242 link lib-stone >
+	left < link libstone-lookout >
+	
+	hotzone < rect 93 1 108 374 link libstone-lib2 >
+     	hotzone < rect 375 1 430 374 link libstone-lib2 >
+ 	
+}
+
+scrn lib-stone
+{	img lib-stone.dib
+	down < link backstone >
+	
+	
+}
+
+scrn libstone
+{
+     img libstone.dib
+
+     down < link lib2-libstone >
+## need to finish
+
+}
+
+scrn libstone-lookout
+{
+     img libstone-lookout.dib
+
+     left < link backstone >
+     right < link backstone >
+
+}
+
+
+############################################
+## Inside the Library
+############################################
+
+scrn Towers_result
+{
+     img libFoyerClosed.dib
+
+     hotzone < rect 354 120 460 364 sound lockedDoor.wav >
+	 left < link libExitClosed >
+     right < link libExitClosed >
+               
+}
+
+scrn Towers_solved
+{
+     img libFoyerClosed.dib
+
+     left < link libExitClosed sound doorclosing.wav >
+     right < link libExitClosed sound doorclosing.wav >
+     hotzone < rect 354 120 460 364 link libFoyerOpen sound dooropening.wav >
+          
+}
+
+scrn libFoyerOpen
+{
+     img libFoyerOpen.dib
+
+     left < link libExitClosed >
+     right < link libExitClosed >
+     hotzone < rect 354 120 460 364 
+		   link lib2-3 >  
+     hotzone < rect 82 20 416 62 
+		   link lib1-letters >        
+     
+}
+
+scrn libExitClosed
+{
+	img libExitClosed.dib
+	music outside.mid
+
+	left < link Towers_result >
+	right < link Towers_result  >
+	hotzone < rect 200 28 304 304 link libExitOpen sound dooropening.wav >
+
+	
+}
+
+scrn libExitOpen
+{
+	img libExitOpen.dib
+
+	left < link Towers_result sound doorclosing.wav >
+	right < link Towers_result sound doorclosing.wav >
+	hotzone < rect 200 28 304 304 link lib1-bl6 sound doorclosing.wav >
+
+	
+}
+
+
+scrn lib1-letters
+{
+	img lib1-letters.dib
+	
+	down < link Towers_result >
+
+	
+}
+
+scrn lib2-3
+{
+	img lib2-3.dib
+	music midifile9.mid
+
+	left < link lib2-1 >
+	right < link lib2-1 >
+	forward < link lib3-4  >
+
+	
+}
+
+scrn lib2-1
+{
+	img lib2-1.dib
+
+	left < link lib2-3 >
+	right < link lib2-3 >
+	hotzone < rect 83 100 168 330 link libExitClosed  >
+	hotzone < rect 275 100 357 330 link libExitClosed >
+
+	
+}
+
+scrn lib3-4
+{
+	img lib3-4.dib
+
+	left < link lib3-2 >
+	right < link lib3-2 >
+	forward < link lib4-5  >
+	hotzone < rect 40 159 107 245 link libcom1 >
+	
+}
+
+scrn lib3-2
+{
+	img lib3-2.dib
+
+	left < link lib3-4 >
+	right < link lib3-4 >
+	hotzone < rect 186 126 224 230 link lib2-1  >
+
+	
+}
+
+scrn lib4-5
+{
+	img lib4-5.dib
+
+	left < link libcom1 >
+	right < link lib4-3 >
+	hotzone < rect 331 131 416 229 link libstairs  >
+	
+}
+
+scrn libstairs
+{
+	img libstairs.dib
+
+	hotzone < rect 119 62 385 363 sound lockedDoor.wav >
+	right < link lib4-5 >
+
+	
+}
+
+scrn lib4-3
+{
+	img lib4-3.dib
+
+	left < link lib4-5 >
+	right < link libcom1 >
+	forward < link lib3-2 >
+
+	
+}
+
+scrn libcom1
+{
+	img libcom1.dib
+	left < link lib4-3 >
+	right < link lib4-5 >
+	hotzone < rect 206 48 290 334 link libcom2 >
+	
+}
+
+scrn libcom2
+{
+	img libcom2.dib
+	left < link libcom4 >
+	hotzone < rect 70 156 336 202 link libcom3 >
+	hotzone < rect 392 204 488 286 link libhelin >
+	
+}
+
+scrn libcom3
+{
+	img libcom3.dib
+	left < link libcom4 >
+	right < link libcom4 >
+	hotzone < rect 36 164 96 242 link libcom-a >
+	hotzone < rect 228 148 298 234 link libcom-b >
+	hotzone < rect 376 150 468 222 link libcom-c >
+	
+}
+
+scrn libcom-a
+{
+	img libcom-a.dib
+	left < link libcom4 >
+	right < link libcom4 >
+	down < link libcom3 >
+	hotzone < rect 146 60 308 190 link libmon-a >
+	
+}
+
+scrn libcom-b
+{
+	img libcom-b.dib
+	left < link libcom4  >
+	right < link libcom4 >
+	down < link libcom3 >
+	hotzone < rect 160 48 358 216 link libmon-b >
+	
+}
+
+scrn libcom-c
+{
+	img libcom-c.dib
+	left < link libcom4 >
+	right < link libcom4 >
+	down < link libcom3 >
+	hotzone < rect 184 116 358 256 link libmon-c >
+	
+}
+
+scrn libmon-a
+{
+	img libmon-a.dib
+	music midifile9.mid
+
+	hotzone < rect 356 324 377 340 puzzle BoxGame >
+	down < link libcom-a >
+	
+}
+
+scrn libmon-b
+{
+	img libmon-b.dib
+	down < link libcom-b >
+	
+}
+
+scrn libmon-c
+{
+	img libmon-c.dib
+	down < link libcom-c >
+	
+}
+
+scrn libcom4
+{
+	img libcom4.dib
+	left < link libcom3 >
+	right < link libcom3 >
+	hotzone < rect 142 98 220 274 link lib4-3 >
+	
+}
+
+scrn libhelin
+{
+	img libhelin.dib
+	down < link libcom2 >
+	
+}
+
+
+############################################
+## Inside the Union
+############################################
+
+scrn union1-ru7
+{
+     img union1-ru7.dib
+     left < link union1-union2 >
+     forward < link ru7-ru6 >
+     
+}
+
+scrn unionExitClosed
+{
+     img unionExitClosed.dib
+     left < link union1-union2 >
+      hotzone < rect 148 11 292 375 sound lockedDoor.wav >
+     
+}
+
+scrn unionExitUnlocked
+{
+     img unionExitClosed.dib
+     left < link union1-union2 >
+     hotzone < rect 148 11 292 375 link unionExitOpen sound dooropening.wav >
+     
+}
+
+scrn unionExitOpen
+{
+     img unionExitOpen.dib
+     left < link union1-union2 sound doorclosing.wav >
+     hotzone < rect 167 14 302 370 link ru7-ru6 sound doorclosing.wav >
+     
+}
+
+ 
+scrn union1-union2
+{
+     img union1-union2.dib
+	 music midifile0.mid
+
+     right < link unionExitClosed >
+     hotzone < rect 234 2 438 360 link union2-union2a >
+     
+}
+
+scrn union2-union1
+{
+     img union2-union1.dib
+     right < link union2-union2a >
+     hotzone < rect 226 38 339 348 link unionExitClosed >
+     
+}
+
+scrn union2-union2a
+{
+      img union2-union2a.dib
+      left < link union2-union1 >
+      forward < link union2a-union3 >
+	
+}
+
+scrn union2a-union3
+{
+     img union2a-union3.dib
+     right < link union2a-union2 >
+     hotzone < rect 219 100 308 218 link union3-union4 >
+     hotzone < rect 47 122 141 227 link unionTravel >
+     
+}
+
+scrn unionTravel
+{
+	img unionTravel.dib
+	left < link EightQueens_result >
+	right < link union3-union4 >
+	forward < link unionHall >
+	
+}
+
+scrn unionHall
+{
+	img unionHall.dib
+	left < link unionHallOut >
+	right < link unionHallOut >
+	forward < link unionHallDoor >
+	
+}
+
+scrn unionHallDoor
+{
+	img unionHallDoor.dib
+	left < link unionHallLeaving >
+	right < link unionHallLeaving >
+	forward < link unionHallClose >
+	
+}
+
+scrn unionHallClose
+{
+	img unionHallClose.dib
+	left < link unionHallLeaving >
+	right < link unionHallLeaving >
+	forward < sound lockedDoor.wav >
+	
+}
+
+scrn gotKey
+{
+	img unionHallClose.dib
+	left < link unionHallLeaving >
+	right < link unionHallLeaving >
+	forward < link unionHallDoorOpen >
+	
+}
+
+scrn unionHallDoorOpen
+{
+	img unionHallDoorOpen.dib
+	left < link unionHallLeaving >
+	right < link unionHallLeaving >
+	hotzone < rect 131 77 348 203 puzzle EightQueens >
+	
+ }
+
+scrn unionHallLeaving
+{
+	img unionHallLeaving.dib
+	left < link unionHallDoor >
+	right < link unionHallDoor >
+	forward < link unionHallOut >
+	
+}
+
+scrn unionHallOut
+{
+	img unionHallOut.dib
+	left < link union3-union4 >
+	right < link EightQueens_result >
+	
+}
+
+scrn union2a-union2
+{
+     img union2a-union2.dib
+     right < link union2a-union3 >
+     left < link union2a-union3 >
+     hotzone < rect 267 113 500 375 link union2-union1 >
+     
+}
+
+scrn EightQueens_result
+{
+     img union3-union2a.dib
+
+     left < link union3-union4 >
+     right < link union3-union4 >
+     forward < link union2a-union2 >
+
+}
+
+scrn EightQueens_solved
+{
+     img trophyShot.dib
+
+	hotzone < rect 194 174 342 366 link winner >
+	hotzone < rect 245 95 284 174 link winner >
+
+
+}
+
+scrn winner
+{
+	img winner.dib
+
+	hotzone < rect 0 0 640 480 exit exit >
+	
+}
+
+
+scrn union3-union4
+{
+     img union3-union4.dib
+
+     left < link EightQueens_result >
+     right < link EightQueens_result >
+
+     forward < link union4-union5 >
+
+}
+
+scrn union4-union3
+{
+     img union4-union3.dib
+
+     left < link union5-mail1 >
+     right < link union4-union5 >
+
+     forward < link EightQueens_result >
+	
+}
+
+scrn union4-union5
+{
+     img union4-5.dib
+
+     left < link union4-union3 >
+     right < link union5-mail1 >
+
+     forward < link union5-5a >
+	
+}
+
+scrn union5-5a
+{
+	img union5-5a.dib
+	left < link union6-union5 >
+	right < link union6-union5 >
+	forward < link union5-union6 >
+	
+}
+
+scrn union5-union4
+{
+     img union5-union4.dib
+
+     left < link union5-mail1 >
+     right < link union5-mail1 >
+
+     forward < link union4-union3 >
+	
+}
+
+scrn union5-union6
+{
+     img union5-union6.dib
+
+     left < link union6-union5 >
+     right < link union6-union5 >
+
+     forward < link union6-union7 >
+     
+}
+
+scrn union5-mail1
+{
+     img union5-mail1.dib
+
+     left < link union4-union5 >
+     right < link union4-union3 >
+     forward < link mailbox >
+     # forward < link mail1-mail2 >
+     
+} 
+scrn union4-union3
+{
+	img union4-union3.dib
+	left < link union5-mail1 >
+	forward < link EightQueens_result >
+      
+}
+scrn union6-union5
+{
+     img union6-5.dib
+
+     left < link union5-mail1 >
+     right < link union5-union6 >
+
+     forward < link union4-union3 >
+     
+}
+
+scrn union6-union7
+{
+     img union6-union7.dib
+     right < link union7-union6 >
+     left < link union7-union6 >
+     forward < link union7-union8 >
+     
+}
+
+scrn union7-union6
+{
+     img union7-union6.dib
+     left < link union7-union8 >
+     forward < link union6-union5 >
+     
+}
+
+scrn union7-union8
+{
+     img union7-union8.dib
+
+     right < link union7-union6 >
+
+     forward < link union8-union9 >
+
+}
+
+scrn union8-union7
+{
+     img union8-union7.dib
+
+     left < link union8-union9 >
+     right < link union8-union9 >
+     forward < link union7-6a >
+
+	music midifile0.mid
+}
+
+scrn union7-6a
+{
+	img union7-6a.dib
+	left < link union7-union8 >
+	right < link union7-union8 >
+	forward < link union7-union6 >
+	
+}
+
+scrn union8-union9
+{
+     img union8-union9.dib
+
+     left < link union8-union7 >
+     right < link union8-union7 >
+
+     hotzone < rect 210 110 266 150 
+		   link union9-box >
+     
+}
+
+scrn union9-box
+{
+     img union9-box.dib
+
+     left < link union8-union7 >
+     right < link union8-union7 >
+     hotzone < rect 224 141 303 197 link  box >
+     
+}
+
+scrn box
+{
+     img box.dib
+
+     down < link union9-box >
+     
+}
+
+scrn boxWithKey
+{
+	img boxWithKey.dib
+	hotzone < rect 176 193 206 233 link boxWithoutKey >
+	hotzone < rect 205 194 275 208 link boxWithoutKey >
+	hotzone < rect 273 176 311 226 link boxWithoutKey >
+	down < link union9-box >
+    
+}
+
+scrn boxWithoutKey
+{
+     img box.dib
+
+     down < link union9-box >
+     
+}
+
+
+################################
+## The Mail Room
+################################
+
+scrn mail1-mail2
+{
+     img mail1-mail2.dib
+ 
+     left < link mail1-union5 >
+     right < link mail1-mail5 >
+
+     forward < link mail2-mail3 >
+     hotzone < rect 439 147 500 375 link mailbox >
+     
+}
+
+scrn mailbox
+{
+	img mailbox.dib
+	hotzone < rect 200 138 259 237 
+		    link mailbox-open >
+	down < link union5-mail1 > # mail1-mail2 >
+	
+}
+
+scrn mailbox-open
+{
+	img mailboxopen.dib
+	hotzone < rect 218 175 249 226 link letter >
+	hotzone < rect 200 138 259 237 link mailbox >
+	down < link union5-mail1 > # mail1-mail2 >
+	
+}
+
+scrn letter
+{
+	img letter.dib
+	down < link mailbox-open sound unlockingDoor.wav >
+	
+}
+
+scrn mail1-union5
+{
+     img mail1-union5.dib
+ 
+     right < link mail1-mail2 >
+
+     forward < link union4-union3 >
+
+}
+
+scrn mail1-mail5
+{
+     img mail1-mail5.dib
+ 
+     left < link mail1-mail2 >
+
+     forward < link mail5-mail4 >
+     
+}
+
+scrn mail2-mail1
+{
+     img mail2-mail1.dib
+ 
+     left < link mail2-mail3 >
+     right < link mail2-mail3 >
+
+     forward < link mail1-union5 >
+
+}
+
+scrn mail2-mail3
+{
+     img mail2-mail3.dib
+ 
+     left < link mail2-mail1 >
+     right < link mail2-mail1 >
+
+     forward < link mail3-mail4 >
+
+}
+
+scrn mail3-mail2
+{
+     img mail3-mail2.dib
+ 
+     left < link mail3-mail4 >
+     right < link mail3-mail4 >
+
+     forward < link mail2-mail1 >
+
+}
+
+scrn mail3-mail4
+{
+     img mail3-mail4.dib
+ 
+     left < link mail3-mail2 >
+     right < link mail3-mail2 >
+
+     forward < link mail4-mail5 >
+
+}
+
+scrn mail4-mail5
+{
+     img mail4-mail5.dib
+ 
+     left < link mail4-mail3 >
+     right < link mail4-mail3 >
+
+     forward < link mail5-mail1 >
+
+}
+
+scrn mail4-mail3
+{
+     img mail4-mail3.dib
+ 
+     left < link mail4-mail5 >
+     right < link mail4-mail5 >
+
+     forward < link mail3-mail2 >
+
+}
+
+scrn mail5-mail1
+{
+     img mail5-mail1.dib
+ 
+     right < link mail5-mail4 >
+     forward < link mail1-union5 >
+     
+}
+
+scrn mail5-mail4
+{
+     img mail5-mail4.dib
+ 
+     left < link mail5-mail1 >
+     
+     forward < link mail4-mail3 >
+     
+}
+#####################################
+# Inside Ranger
+#####################################
+
+scrn ranger1-2
+{
+	img ranger1-2.dib
+	forward < link ranger3-4 >
+	left < link ranger2-1 >
+	right < link ranger2-1 >
+	
+	music monkey.mid
+	
+}
+
+scrn ranger3-4
+{
+	img ranger3-4.dib
+	left < link ranger3-2 >
+	hotzone < rect 319 127 357 260 link ranger4-6 >
+	
+}
+scrn ranger4-5
+{
+	img ranger4-5.dib
+	left < link ranger4-3 >
+	# right < link ranger4-6 >
+	
+}
+scrn ranger4-3
+{
+	img ranger4-3.dib
+	hotzone < rect 341 121 389 257 link ranger3-2 >
+	left < link ranger4-6 >
+	
+}
+scrn ranger3-2
+{
+	img ranger3-2.dib
+	forward < link ranger2-1 >
+	right < link ranger3-4 >
+	#
+}
+scrn ranger4-6
+{
+	img ranger4-6.dib
+	forward < link ranger6-7 >
+	# left < link ranger4-5 >
+	right < link ranger4-3 >
+	
+}
+scrn ranger6-7
+{
+	img ranger6-7.dib
+	forward < link ranger7-8 >
+	left < link ranger6-4 >
+	right < link ranger6-4 >
+	
+}
+scrn ranger6-4
+{
+	img ranger6-4.dib
+	forward < link ranger4-3 >
+	right < link ranger6-7 >
+	left < link ranger6-7 >
+	
+}
+scrn ranger7-8
+{
+	img ranger7-8.dib
+	left < link ranger7-6 >
+	forward < link ranger8-9 >
+	
+}
+scrn ranger8-9
+{
+	img ranger8-9.dib
+	left < link ranger8-7 >
+	forward < link ranger9-10 >
+	
+}
+scrn ranger8-7
+{
+	img ranger8-7.dib
+	forward < link ranger7-6 >
+	right < link ranger8-9 >
+	
+}
+scrn ranger7-6
+{
+	img ranger7-6.dib
+	forward < link ranger6-4 >
+	right < link ranger7-8 >
+	
+}
+scrn ranger9-10
+{
+	img ranger9-10.dib
+	right < link ranger9-8 >
+	left < link ranger9-pepsi >
+	forward < link ranger10-20a >
+	
+}
+scrn ranger9-8
+{
+	img ranger9-8.dib
+	forward < link ranger8-7 >
+	right < link vend >
+	left < link ranger9-10 >
+	
+}
+scrn ranger10-11
+{
+	img ranger10-11.dib
+	hotzone < rect 35 68 69 241 link fuse >
+	hotzone < rect 0 67 24 301 link ranger10-9 >
+	right < link ranger10-20a >
+	forward < link ranger11-12 >
+	
+}
+scrn fuse
+{	img fuse.dib
+	down < link ranger10-11 >
+	
+	forward < link fuse2 >
+}
+scrn fuse2
+{	img fuse2.dib
+	down < link fuse >
+	hotzone < rect 108 36 131 56 link fuse3 >
+	hotzone < rect 108 67 131 86 link fuse4 >
+	
+}
+scrn fuse4
+{	img fuse4.dib
+	down < link fuse2 >
+	hotzone < rect 108 36 131 56 link fuse5 >
+
+	
+}
+scrn fuse3
+{	img fuse3.dib
+	down < link fuse2 >
+	hotzone < rect 108 67 131 86 link fuse5 >
+
+	
+}
+scrn fuse5
+{	img fuse5.dib
+	down < link fuse2 >
+	
+}
+
+scrn ranger11-12
+{	img ranger11-12.dib
+	left < link ranger11-10 >
+	right < link ranger11-10 >
+	forward < link ranger12-13 >
+	
+}
+scrn ranger12-13
+{	img  ranger12-13.dib 
+	left < link ranger13-12 >
+	hotzone < rect 358 235 409 243 link garbagecan >
+	hotzone < rect 386 95 410 206 link closet >
+	
+}
+scrn closet
+{	img closet.dib
+	right < link ranger13-12 >
+	forward < link closet2 sound dooropening.wav >
+	
+}
+scrn closet2
+{	img closet2.dib
+	down < link closet sound doorclosing.wav >
+	hotzone < rect 258 89 361 165 link closet3 >
+	right < link ranger13-12 >
+	up < link closet5 >
+	
+}
+scrn closet3
+{	img closet3.dib
+	down < link closet2 >
+	
+}	
+scrn closet5
+{	img closet5.dib
+	down < link closet2 >
+	
+}
+scrn garbagecan
+{	img garbagecan.dib
+	down < link ranger12-13 >
+	
+}
+scrn ranger13-12
+{	img ranger13-12.dib
+	forward < link ranger11-10 >
+	left < link ranger12-13 >
+	right < link ranger12-13 >
+	
+}
+scrn ranger11-10
+{	img ranger11-10.dib
+	forward < link ranger10-20 >
+	left < link ranger11-12 >
+	right < link ranger11-12 >
+	
+}
+scrn ranger10-20a
+{	img ranger10-20a.dib
+	forward < link ranger10-20 >
+	right < link ranger10-9 >
+	# left < link ranger10-11 >
+	
+}
+scrn ranger10-20
+{
+	img ranger10-20.dib
+	left < link ranger20-21 cursor 0 >
+	right < link ranger20-10 >	
+}
+scrn ranger20-19
+{
+	img ranger20-19.dib
+	forward < link ranger19-18 >
+	right < link ranger20-10 >
+	
+}
+scrn ranger19-18
+{	img ranger19-18.dib
+	left < link ranger19-20 >
+	right < link ranger19-20 >
+	
+}
+scrn ranger19-20
+{	img ranger19-20.dib
+	forward < link ranger20-10 >
+	
+}
+scrn ranger20-21
+{
+	img ranger20-21_dark.dib
+	down < link ranger20-10 >
+	left < link ranger21-20 >
+	right < link ranger21-20 >
+	hotzone < rect 227 60 326 299 link ranger22-23_dark >
+	
+}
+
+scrn ranger20-21_light
+{
+	img ranger20-21.dib
+	down < link ranger20-10 >
+	left < link ranger21-20 >
+	right < link ranger21-20 >
+	hotzone < rect 227 60 326 299 link ranger22-23 >
+	
+}
+
+scrn ranger22-23
+{
+	img ranger22-23.dib
+	
+	right < link ranger22-21 >
+	left < link ranger22-21 >
+	hotzone < rect 141 0 387 375 link ranger23-24 >
+		
+}
+
+scrn ranger22-23_dark
+{
+	img ranger22-23_dark.dib
+	
+	right < link ranger22-21_dark >
+	left < link ranger22-21_dark >
+	hotzone < rect 141 0 387 375 link blank >
+	down < link ranger20-21 >
+		
+}
+
+scrn blank
+{
+	img blank.dib
+	down < link ranger22-23_dark >
+
+} 
+
+scrn wheel
+{
+	img wheel.dib
+	down < link ranger22-23 >
+}
+scrn ranger23-24
+{
+	img ranger23-24.dib	
+	left < link ranger23-22 >
+	right < link ranger23-22 >
+	forward < link ranger24-25 >
+	
+}
+scrn ranger24-25
+{
+	img ranger24-25.dib
+	left < link ranger24-23 >
+	right < link ranger24-23 >
+	forward < puzzle TowersPuzzle >
+
+	music monkey.mid
+	
+}
+scrn ranger24-23
+{
+	img ranger24-23.dib
+	left < link ranger23-22 cursor 0 >
+	right < link ranger24-25 >
+	
+}
+scrn ranger23-22
+{
+	img ranger23-22.dib
+	forward < link ranger22-21 >
+	right < link ranger23-24 >
+	left < link ranger23-24 >
+	
+}
+scrn ranger22-21
+{
+	img ranger22-21.dib
+	hotzone < rect 170 58 300 343 link ranger21-20 >
+	right < link ranger22-23 >
+	left < link ranger22-23 >
+		
+}
+scrn ranger22-21_dark
+{
+	img ranger22-21.dib
+	hotzone < rect 170 58 300 343 link ranger21-20 >
+	hotzone < rect 145 162 189 174 link ranger21-20 >
+	right < link ranger22-23_dark >
+	left < link ranger22-23_dark >
+		
+}
+
+scrn ranger21-20
+{
+	img ranger21-20.dib
+	forward < link ranger20-10 >
+	hotzone < rect 31 208 55 255 sound lightSwitch.wav set ranger20-21=ranger20-21_light >
+	right < link ranger20-21 >
+	left < link ranger20-21 >
+	
+}
+scrn ranger20-10
+{
+	img ranger20-10.dib
+	forward < link ranger10-9 >
+	right < link ranger20-21 >
+	# left < link ranger20-19 >
+	
+}
+scrn ranger10-9
+{
+	img ranger10-9.dib
+	left < link ranger10-20a >
+	forward < link ranger9-8 >
+	# right < link ranger10-11 >
+	
+}
+scrn ranger9-pepsi
+{
+	img ranger9-pepsi.dib
+	forward < link ranger9-pepsi2 >
+	
+	right < link ranger9-10 >
+	left < link vend >
+	
+}
+
+scrn ranger9-pepsi2
+{
+	img ranger9-pepsi2.dib
+	down < link ranger9-pepsi >
+	
+}
+
+scrn vend
+{
+	img vend.dib
+	forward < link vend2 >
+	left < link ranger9-8 >
+	right < link ranger9-pepsi >
+	
+}
+scrn vend2
+{
+	img vend2.dib
+	down < link vend >
+	
+}
+
+scrn ranger2-1
+{
+	img ranger2-1.dib
+	forward < link ranger1closed >
+	left < link ranger1-2 >
+	right < link ranger1-2 >
+	
+}
+
+scrn ranger1closed
+{
+	img ranger1closed.dib
+	forward < link ranger1-out sound dooropening.wav >
+	right < link ranger1-2 >
+	left < link ranger1-2 >
+	
+}
+scrn ranger1-out
+{
+	img ranger1-out.dib
+	down < link ranger1closed >
+	forward < link randoor-ru1 sound doorclosing.wav >
+	right < link ranger1-2 >
+	left < link ranger1-2 >
+	
+}
+
+## end ranger pix
+
+end
