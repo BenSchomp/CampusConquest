@@ -30,9 +30,10 @@ instead of `campus.sav`.
 
 Known differences from 2001: MIDI music is pre-rendered with the FluidR3 General MIDI soundfont
 (the original used the Microsoft GS Wavetable synth), and "Exit" returns to the title screen
-instead of closing a window. Two reachable screens show black, exactly as in the original,
-because their pictures were never made or are misnamed: `bl3-q5` (points at `bl3-q4.dib`) and
-`lib1-letters`.
+instead of closing a window. `bl3-q5` pointed at a picture that doesn't exist (`bl3-q4.dib`) and
+showed black; the build now points it at `bl3-q5.dib` (see `MAP_DATA_FIXES` in
+`tools/build_assets.py`). `lib1-letters` still shows black, as in the original, because its
+picture was never made.
 
 ## Rebuilding the assets
 

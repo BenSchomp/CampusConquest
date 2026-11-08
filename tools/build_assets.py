@@ -69,5 +69,16 @@ for midi in sorted((source_dir / 'sounds').glob('*.mid')):
                     '-b:a', '96k', str(target)], check=True)
     rendered_wav.unlink()
 
-shutil.copyfile(source_dir / 'mapData.txt', output_dir / 'mapData.txt')
+# Fixes to the 2001 map data, applied to the web copy only (Campus_Conquest/ stays as shipped).
+MAP_DATA_FIXES = [
+    # scrn bl3-q5 pointed at a picture that never existed; its own picture, bl3-q5.dib, was there all along.
+    ('scrn bl3-q5\r\n{\r\n     img bl3-q4.dib', 'scrn bl3-q5\r\n{\r\n     img bl3-q5.dib'),
+]
+map_data = (source_dir / 'mapData.txt').read_bytes().decode('latin-1')
+for broken, fixed in MAP_DATA_FIXES:
+    if map_data.count(broken) != 1:
+        raise SystemExit(f'mapData.txt fix no longer applies: {broken!r}')
+    map_data = map_data.replace(broken, fixed)
+(output_dir / 'mapData.txt').write_bytes(map_data.encode('latin-1'))
+print('done')
 print('done')

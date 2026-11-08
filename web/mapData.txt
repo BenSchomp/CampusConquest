@@ -1126,7 +1126,7 @@ scrn PresPuzzle_solved
 
 scrn bl3-q5
 {
-     img bl3-q4.dib  
+     img bl3-q5.dib  
 
      left  < link bl3-bl2 >  
      right  < link bl3-bl4 >  
