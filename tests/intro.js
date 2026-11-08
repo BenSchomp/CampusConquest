@@ -14,7 +14,7 @@ const outDir = process.argv[2] || '/tmp';
   const startedAt = Date.now();
   await page.mouse.click(320, 240);
   const states = [];
-  for (const [at, name] of [[300, '1-words-out'], [1300, '2-dissolve'], [3600, '3-white-ram'], [7400, '4-to-white'], [8200, '5-plain-white'], [8700, '6-to-title'], [10200, '7-title']]) {
+  for (const [at, name] of [[300, '1-words-out'], [1300, '2-dissolve'], [2600, '3-white-ram'], [3600, '4-to-white'], [4400, '5-to-title'], [6200, '6-title']]) {
     await page.waitForTimeout(Math.max(0, at - (Date.now() - startedAt)));
     await page.screenshot({ path: `${outDir}/intro-${name}.png` });
     states.push([name, await page.evaluate(() => [state, currentPicture.image.src ? currentPicture.image.src.match(/images\/(\w+)/)[1] : 'plain white',

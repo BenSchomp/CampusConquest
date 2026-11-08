@@ -947,7 +947,7 @@ async function playIntro() {
   playSound('intro.wav');
   await fadeOutStartScreenText(600);
   await crossfadeTo('ram2.dib', 1500);
-  await sleep(4800);
+  await sleep(1000);                          // a beat on the white ram (the original held it 4.8 s)
   await crossfadeToImage(PLAIN_WHITE, 1000);   // the white ram fades out to plain white first
   state = STATE.TITLE;
   await crossfadeTo('titleScreen.dib', 1500);

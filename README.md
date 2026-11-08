@@ -36,8 +36,8 @@ Known differences from 2001: MIDI music is pre-rendered with the FluidR3 General
 instead of closing a window; the title screen's own "Exit" button is painted out (`remove_title_exit`). The game opens on the black ram logo, with "Campus Conquest" above it and "Click to start ..." under it
 fading in, because browsers only play sound after a click; a click at any moment starts the intro
 music, fades the words out to black, and dissolves the logo to the white ram logo, then to plain
-white, then to the title screen (the original showed 3.6 s of black first and dissolved the white
-ram straight into the title). The black ram is moved 1 px right and
+white, then to the title screen (the original showed 3.6 s of black first, held the white ram for 4.8 s
+instead of a beat, and dissolved it straight into the title). The black ram is moved 1 px right and
 13 px down so it sits exactly on the blue one through the dissolve, and the almost-black square
 behind it is painted pure black (`align_start_ram`). `bl3-q5` pointed at a picture that doesn't exist (`bl3-q4.dib`) and
 showed black; the build now points it at `bl3-q5.dib` (see `MAP_DATA_FIXES` in
