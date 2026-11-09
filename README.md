@@ -13,6 +13,13 @@ rebuilt from the original executable and data:
 - `decompiled/`: the Ghidra decompile of `Campus-Conquest-v2.1.exe` that the web engine was written from.
 - `tests/`: Playwright scripts that play through the menus and solve every puzzle.
 
+## Walkthrough
+
+[docs/walkthrough/](docs/walkthrough/) has two maps of the 11 stops it takes to finish the game:
+one over the real URI campus, and a schematic one laid out by how the game's screens connect. The
+scripts that work out the route from `mapData.txt` and draw the maps are in
+[tools/walkthrough/](tools/walkthrough/).
+
 ## How the web version works
 
 The 2001 engine is an interpreter for `mapData.txt`: each `scrn` block is a 500×375 photo with
